@@ -1,17 +1,39 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
-  "license": "",
-  "engines": {
-    "node": ">=6.13.0"
-  },
+  "name": "property_description",
+  "version": "1.0.0",
+  "description": "property description module",
+  "main": ".eslintrc.js",
   "scripts": {
+    "start": "nodemon server/index.js",
+    "build": "webpack -w",
+    "seed": "node database/seed.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sharebnbhr/property_description.git"
+  },
+  "author": "Anthony Kim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sharebnbhr/property_description/issues"
+  },
+  "homepage": "https://github.com/sharebnbhr/property_description#readme",
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
   },
   "dependencies": {
-  },
-  "devDependencies": {
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.20",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.10",
+    "react": "^16.8.5",
+    "react-dom": "^15.3.2"
   }
 }
