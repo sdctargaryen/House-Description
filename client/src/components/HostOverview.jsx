@@ -1,31 +1,30 @@
 import React from 'react';
-  
-const HostOverview = (props) => {
-  let { propertyInfo, host, beds, numBaths } = props;
-   return(
-    <div>
-      <div>
-        <div className='name'>
-          {propertyInfo.title}
-        </div>
-        <div className='host'>
-          <div>
-            {/* host image */}
-            <div>
-              {/* <img src={host.pictureUrl}></img>*/}
-            </div>
-            <div className='hostName'>
-              {host.name}
-            </div>
+import hostStyle from './host.css';
 
+const HostOverview = (props) => {
+  console.log(props)
+  let { propertyInfo, host, beds, numBaths } = props;
+    return (
+      <div className={hostStyle.topContainer}>
+        <div className='titleContainer'>
+          <div className={hostStyle.propertyName}>
+            {propertyInfo.title}
           </div>
-          
+          <div className={hostStyle.cityName}>
+            {propertyInfo.location}
+          </div>
+        </div>
+        <div className='hostContainer'>
+          <div>
+          {/* host image */}
+            {/* <img src={host.pictureUrl}></img>*/}
+          </div>
+          <div className='hostName'>
+            {host.name}
+          </div>
         </div>
       </div>
-
-      {numBaths}
-    </div>
-  )
+    )
 }
 
 export default HostOverview
