@@ -1,0 +1,20 @@
+.numberContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.icon{
+  width: 24px;
+  height: 44px
+}
+
+.houseIcon {
+  width: 22px;
+  height: 44px
+};
+
+.locationIcon {
+  width: 22px;
+  height: 44px
+};

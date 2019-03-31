@@ -1,0 +1,15 @@
+.topContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.propertyName {
+  font-size: 32px;
+  font-weight: bold;
+  padding: 5px 0px 5px 0px;
+}
+
+.cityName{
+  margin-top: 7px;
+}

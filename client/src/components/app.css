@@ -1,0 +1,10 @@
+.outermostDiv{
+  margin: 0px 100px 0px 100px;
+
+}
+
+.divider{
+  margin: 24px 0px 24px 0px;
+  border-bottom-color: grey;
+  border-bottom-width: 1px
+}
