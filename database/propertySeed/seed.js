@@ -33,12 +33,11 @@ const sentences = [
 
 var makeParagraph = () => {
   let result = [];
-  let randomIndex = Math.floor(Math.random() * 4) + 1;
+  let randomIndex = Math.floor(Math.random() * 3) + 1;
   while (randomIndex > 0){
     result.push(randomElement(sentences));
     randomIndex--
   };
-  // console.log(result.join(" "));
   return result.join(" ");
 };
 
@@ -49,7 +48,6 @@ var makeDescription = () => {
     result.push(makeParagraph())
     randomIndex--
   };
-  // console.log(result);
   return result
 };
 //-----------------------------------------------
@@ -76,7 +74,6 @@ const hostUrls = [];
 
 let xRandomElements = function(array, value){
   let result = [];
-  let randomIndex = Math.floor(Math.random() * value);
   while (value > 0){
     result.push(randomElement(array));
     value--
@@ -100,6 +97,12 @@ let numBeds = randomElement([1, 2, 3, 4, 5, 6]);
 // Bed Types
 let bedTypesArr = xRandomElements(bedTypes, numBeds);
 // UrlIcons
+let bedIcons = [
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-floor.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-queenking.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-single.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-sofa.png'
+];
 //////////// TODO ///////////////
 // let bedIconUrl = xRandomElements(bedUrls, numBeds) 
 
@@ -115,12 +118,21 @@ xRandomElements(amenities, numAmenities);
 let numNotIncluded = randomElement([2, 3, 4, 5]);
 xRandomElements(amenities, numNotIncluded);
 // UrlIcons
+let amenIcons = [
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-elevator.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-gym.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-kitchen.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-parking.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-tv.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-washdry.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-wifi.png'
+];
 //////////// TODO ///////////////
 // let amIconUrl = xRandomElements(bedUrls, randomElement([6, 7, 8])) 
 
 
 // Number of Bathrooms
-let randomBath = Math.floor(Math.random() * 4)
+let randomBath = Math.floor(Math.random() * 4) + 1;
 
 //Host Functions: { name: String, pictureUrl: String },
 const firstNames = ['Mark', 'Jaime', 'Arya', 'Cersei', 'Tyrion', 'Michael', 'Sansa', 'Cassie', 'Sarah', 'Jackie', 'John', 'Fred', 'Jacob', 'Daniel', 'Jason', 'Anthony'];
@@ -128,51 +140,79 @@ const lastNames = ['', 'Johnson', 'Lee', 'Smith', 'Snow', 'Matthews', 'Rodriquez
 const names = [`${randomElement(firstNames)}`, `${randomElement(firstNames)} ${randomElement(lastNames)}`, `${randomElement(firstNames)} and ${randomElement(firstNames)}`];
 randomElement(names);
 // UrlIcons
+let hostImgs = [
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-adam.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-anthony.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-arash.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-calvin.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-celia.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-charles.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-drew.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-gabrielle.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-harrison.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-jeff.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-julie.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-julien.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-justin.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-kin.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-matt.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-wendy.png',
+  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-yongsoo.png'
+];
 //////////// TODO ///////////////
 // randomElement(hostUrls)
 
 // summary: Array
 
-generateProperty = (value) => {
-  var value = value || 1;
-  var result = [];
+var result = [];
+
+// generateProperty = (value) => {
+generateProperty = () => {
+  // var value = value || 1;
+  // var result = [];
   var propObj = {
     propertyInfo: {
-      propType: propType, 
-      title: propName, 
-      location: propLoc,
-      numGuests: guestNum
+      propType: randomElement(propTypes), 
+      title: randomElement(titles), 
+      location: randomElement(locations),
+      numGuests: randomElement([2, 3, 4, 5, 6, 7, 8])
     },
     beds: {
-      quantity: numBeds, 
-      bedType: bedTypesArr, 
-      iconUrl: [] // iconUrl
+      quantity: randomElement([1, 2, 3, 4, 5, 6]), 
+      bedType: xRandomElements(bedTypes, numBeds), 
+      iconUrl: xRandomElements(bedIcons, numBeds) // iconUrl
     },
     amenities: {
       basic: xRandomElements(amenities, numAmenities),
       notIncluded: xRandomElements(amenities, numNotIncluded),
-      iconUrl: [] // iconUrl
+      iconUrl: xRandomElements(amenIcons, randomElement([2, 3, 4])) // iconUrl
     },
-    numBaths: randomBath,
+    numBaths: ((Math.floor(Math.random() * 4)) + 1),
     host: {
       name: randomElement(names), 
-      pictureUrl: '' // randomElement(hostUrls)
+      pictureUrl: randomElement(hostImgs) // randomElement(hostUrls)
     },
     summary: makeDescription()
   };
-  while (value > 0){
-    result.push(propObj);
-    value--
-  }
+  // while (value > 0){
+  //   result.push(propObj);
+  //   value--
+  // }
   // console.log(result)
-  return result
+  // return result
+  return propObj
 };
 // generateProperty(2)
 // --------------------------------------------------
 
+for (var i = 0; i <= 100; i++){
+  result.push(generateProperty())
+}
+
 var insertAllProperties = function() {
   // create will take either an object or an array of objects
-  Property.create(generateProperty(100))
+  // Property.create(generateProperty(100))
+  Property.create(result)
     .then(() => {
       console.log('database seeded');
       mongoose.connection.close();
