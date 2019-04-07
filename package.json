@@ -37,6 +37,8 @@
     "nodemon": "^1.18.10",
     "react": "^16.8.5",
     "react-dom": "^16.8.4",
+    "react-transition-group": "^2.9.0",
+    "react-waypoint": "^9.0.1",
     "style-loader": "^0.23.1",
     "webpack-combine-loaders": "^2.0.4"
   }
