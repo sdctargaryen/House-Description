@@ -27,7 +27,10 @@ const NumberInfo = (props) => {
    return(
     <div className={numberinfo.numberContainer}>
       {/* 24 x 44 */}
-      <div className={numberinfo.icon}> {/* house icon by font */} </div>
+      <div className={numberinfo.icon}> 
+      {/* house icon by font */} 
+      {/* <img className={hostStyle.hostImg} src=''></img> */}
+      </div>
       <div>
         <div className='propType'>
           {props.propertyType}

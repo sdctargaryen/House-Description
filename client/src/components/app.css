@@ -1,10 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+a:link{color: #008489}
+a:active{color: #008489}
+a:visited{color: #008489}
+
 .outermostDiv{
   margin: 0px 100px 0px 100px;
-
+  font-family: 'Raleway', sans-serif;
 }
 
 .divider{
   margin: 24px 0px 24px 0px;
-  border-bottom-color: grey;
-  border-bottom-width: 1px
+  border-bottom: 1px solid #EBEBEB;
 }

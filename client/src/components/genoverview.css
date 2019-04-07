@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+.summary{
+  font-family: 'Raleway', sans-serif;
+}
+
+/* .readMore{
+  display: flex;
+  flex-direction: column;
+} */
+
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 1300ms ease;
+}
+
+.fade-leave {
+  opacity: 1;
+}
+
+.fade-leave.fade-leave-active {
+  opacity: 0.01;
+  transition: opacity 1300ms ease;
+}
+
+.readMoreLink{
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: bold;
+  color: #008489
+}
+
+a:link{color: #008489}
+a:active{color: #008489}
+a:visited{color: #008489}
+
+.readSummary{
+  margin-top: 15px;
+  font-weight: bold;
+}

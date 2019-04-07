@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
 .numberContainer{
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  margin-top: 5px;
+  font-family: 'Raleway', sans-serif;
 }
 
 .icon{

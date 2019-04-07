@@ -1,7 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
 .topContainer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  font-family: 'Raleway', sans-serif;
+}
+
+.hostImg {
+  height: 64px;
+  width: 64px;
+  border-radius: 100px;
 }
 
 .propertyName {
@@ -12,4 +21,5 @@
 
 .cityName{
   margin-top: 7px;
+  margin-bottom: 10px;
 }
