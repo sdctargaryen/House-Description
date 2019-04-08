@@ -14,11 +14,18 @@
 }
 
 .houseIcon {
-  width: 22px;
-  height: 44px
-};
+  width: 14px;
+  height: 14px;
+  padding-top: 1px;
+  padding-right: 10px;
+  padding-bottom: 30px
+}
 
 .locationIcon {
   width: 22px;
   height: 44px
-};
+}
+
+.detail{
+  margin-right: 15px
+}

@@ -26,20 +26,18 @@ const NumberInfo = (props) => {
 
    return(
     <div className={numberinfo.numberContainer}>
-      {/* 24 x 44 */}
       <div className={numberinfo.icon}> 
-      {/* house icon by font */} 
-      {/* <img className={hostStyle.hostImg} src=''></img> */}
+      <img className={numberinfo.houseIcon} src='https://s3-us-west-1.amazonaws.com/airbnb-icons-png/font_icons/house.png'></img>
       </div>
       <div>
         <div className='propType'>
           {props.propertyType}
         </div>
         <div className='theNumbers'>
-          <span>{guests} </span>
-          <span>{roomCount} </span>
-          <span>{bedCount} </span>
-          <span>{bathCount}</span>
+          <span className={numberinfo.detail}>{guests} </span>
+          <span className={numberinfo.detail}>{roomCount} </span>
+          <span className={numberinfo.detail}>{bedCount} </span>
+          <span className={numberinfo.detail}>{bathCount}</span>
         </div>
       </div>
     </div>
