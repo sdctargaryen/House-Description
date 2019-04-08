@@ -3,7 +3,7 @@ import genover from './genoverview.css';
 import { CSSTransition } from 'react-transition-group';
   
 const GenOverview = (props) => {
-  console.log(props)
+  // console.log(props)
   const [readMoreLink, setReadMoreLink] = useState(true);
   const [showMore, setShowMore] = useState(false);
   // if (props.readMoreSum === false && props.summary.length > 1) {
