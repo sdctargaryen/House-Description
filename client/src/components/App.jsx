@@ -5,18 +5,26 @@ import NavBar from './NavBar';
 import GenOverview from './GenOverview';
 import HostOverview from './HostOverview';
 import NumberInfo from './NumberInfo';
+import AmenitiesIcons from './AmenitiesIcons';
 import app from './app.css';
-
+//   beds: {quantity: Number, bedType: Array, iconUrl: Array},
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      // overview
       propertyInfo: {},
       host: {},
-      beds: {},
       numBaths: 0,
       summary: [],
-      readMoreSum: false,
+      // amenities
+      amenList: [],
+      amenNot: [],
+      amenIcon: [],
+      // beds
+      beds: {},
+      // read states
+      // readMoreSum: false,
       readMoreAmen: false,
       readMoreAccess: false
     };
@@ -38,8 +46,11 @@ export default class App extends React.Component {
           host: data.data[0].host,
           beds: data.data[0].beds,
           numBaths: data.data[0].numBaths,
-          summary: data.data[0].summary
-        })
+          summary: data.data[0].summary,
+          amenList: data.data[0].amenities.basic,
+          amenNot: data.data[0].amenities.notIncluded,
+          amenIcon: data.data[0].amenities.iconUrl,
+        }, () => {console.log(this.state.amenIcon)})
       })
       .catch((err) => { console.error(err) })
   }
@@ -60,8 +71,8 @@ export default class App extends React.Component {
   // }
 
   render() {
-    let { propertyInfo, host, beds, numBaths, summary } = this.state;
-    // console.log(this.state.property)
+    let { propertyInfo, host, beds, numBaths, summary, amenList, amenIcon } = this.state;
+    // console.log('in renderrrrrrr', amenIcon)
     return (
       <div>
         <Waypoint
@@ -96,25 +107,32 @@ export default class App extends React.Component {
                   // readMoreSum={this.state.readMoreSum}
                   // clickMoreSum={this.clickMoreSum} 
                   />
-
               </div>
               <div className='description'>
                 {summary.slice(1).forEach((paragraph, i) => {
                   return <GenOverview key={i} summary={paragraph} />
                 })}
               </div>
+              <div className={app.divider}></div>
               <div className='amenities'>
-
-
+                <div>Amenities</div>
+                <div className={app.amenIconContainer}>
+                  <AmenitiesIcons amenitiesIcons={amenIcon} />
+                  {/* <Amenities /> */}
+                  <a className={app.moreAmensLink}>Show all {amenList.length} amenities</a>
+                </div>
               </div>
+              <div className={app.divider}></div>
               <div className='sleepingArrangements'>
-
+                <div>Sleeping arrangements</div>
 
               </div>
+              <div className={app.divider}></div>
               <div className='accessibility'>
-
+                <div>Accessibility</div>
 
               </div>
+              <div className={app.divider}></div>
             </div>
             </Waypoint>
           </div>

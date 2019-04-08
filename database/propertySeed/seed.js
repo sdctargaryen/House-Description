@@ -61,12 +61,6 @@ const titles = [`${randomElement(adjective)} ${randomElement(noun)}`, `${randomE
   
 const bedTypes = ['single', 'double', 'queen', 'king', 'sofa', 'sofa bed', 'hammock', 'air mattress', 'bunk bed', 'water bed', 'floor mattress', 'crib', 'toddler bed'];
 
-const bedUrls = [];
-
-const amenitiesUrls = [];
-
-const hostUrls = [];
-
 // let randomElement = function(array){
 //   let randomIndex = Math.floor(Math.random() * array.length);
 //   return array[randomIndex];
@@ -98,10 +92,11 @@ let numBeds = randomElement([1, 2, 3, 4, 5, 6]);
 let bedTypesArr = xRandomElements(bedTypes, numBeds);
 // UrlIcons
 let bedIcons = [
-  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-floor.png',
-  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-queenking.png',
-  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-single.png',
-  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-sofa.png'
+  {floor: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-floor.png'},
+  {queen: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-queenking.png'},
+  {king: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-queenking.png'},
+  {single: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-single.png'},
+  {sofa: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-sofa.png'}
 ];
 //////////// TODO ///////////////
 // let bedIconUrl = xRandomElements(bedUrls, numBeds) 
@@ -119,13 +114,14 @@ let numNotIncluded = randomElement([2, 3, 4, 5]);
 xRandomElements(amenities, numNotIncluded);
 // UrlIcons
 let amenIcons = [
-  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-elevator.png',
-  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-gym.png',
-  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-kitchen.png',
-  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-parking.png',
-  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-tv.png',
-  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-washdry.png',
-  'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-wifi.png'
+  {Elevator: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-elevator.png'},
+  {Gym: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-gym.png'},
+  {Kitchen: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-kitchen.png'},
+  {Parking: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-parking.png'},
+  {TV: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-tv.png'},
+  {Washer: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-washdry.png'},
+  {Dryer: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-washdry.png'},
+  {Wifi: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-wifi.png'}
 ];
 //////////// TODO ///////////////
 // let amIconUrl = xRandomElements(bedUrls, randomElement([6, 7, 8])) 
