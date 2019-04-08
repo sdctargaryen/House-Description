@@ -7,26 +7,27 @@ export default class NavBar extends React.Component {
     this.state = {
       showing: false
     }
+    this.clickOverview = this.clickOverview.bind(this)
   }
   
   clickOverview() {
-
+    document.getElementById('overviewDiv').scrollIntoView()
   }
 
   clickReviews() {
-
+    document.getElementById('reviews').scrollIntoView()
   }
 
   clickHost() {
-
+    document.getElementById('hostInfo').scrollIntoView()
   }
 
   clickLocation() {
-
+    document.getElementById('neighborhood').scrollIntoView()
   }
 
   clickPolicies() {
-    
+    document.getElementById('policies').scrollIntoView()
   }
 
   render(){
@@ -34,15 +35,15 @@ export default class NavBar extends React.Component {
     return(
       <div id='waypointNavbar' className={navbarstyle.navBar}>
         <div className={navbarstyle.navOptionsGroup}>
-          <span id='navOverview' className={navbarstyle.navOptions}><a href="#">Overview</a></span>·
-          <span id='navReviews' className={navbarstyle.navOptions}><a href="#">Reviews</a></span>·
-          <span id='navHost' className={navbarstyle.navOptions}><a href="#">The Host</a></span>·
-          <span id='navLocation' className={navbarstyle.navOptions}><a href="#">Location</a></span>·
-          <span id='navPolicies' className={navbarstyle.navOptions}><a href="#">Policies</a></span>
+          <span id='navOverview' className={navbarstyle.navOptions}><a onClick={() => this.clickOverview()}>Overview</a></span>·
+          <span id='navReviews' className={navbarstyle.navOptions}><a onClick={() => this.clickReviews()}>Reviews</a></span>·
+          <span id='navHost' className={navbarstyle.navOptions}><a onClick={() => this.clickHost()}>The Host</a></span>·
+          <span id='navLocation' className={navbarstyle.navOptions}><a onClick={() => this.clickLocation()}>Location</a></span>·
+          <span id='navPolicies' className={navbarstyle.navOptions}><a onClick={() => this.clickPolicies()}>Policies</a></span>
         </div>
         <div className='rightBtns'>
-          <span className={navbarstyle.navOptions}>Share</span>
-          <span className={navbarstyle.navOptions}>Save</span>
+          <span className={navbarstyle.navOptions}><img className={navbarstyle.icons} src='https://s3-us-west-1.amazonaws.com/sharebnbicons/share+icon.png'></img><a>Share</a></span>
+          <span className={navbarstyle.navOptions}><img className={navbarstyle.icons} src='https://s3-us-west-1.amazonaws.com/sharebnbicons/heart+icon.png'></img><a>Save</a></span>
         </div>
       </div>
     )

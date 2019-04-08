@@ -6,8 +6,9 @@ import GenOverview from './GenOverview';
 import HostOverview from './HostOverview';
 import NumberInfo from './NumberInfo';
 import AmenitiesIcons from './AmenitiesIcons';
+import Sleeping from './Sleeping';
 import app from './app.css';
-//   beds: {quantity: Number, bedType: Array, iconUrl: Array},
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -19,14 +20,14 @@ export default class App extends React.Component {
       summary: [],
       // amenities
       amenList: [],
-      amenNot: [],
+      // amenNot: [],
       amenIcon: [],
       // beds
       beds: {},
       // read states
       // readMoreSum: false,
-      readMoreAmen: false,
-      readMoreAccess: false
+      showAmens: false,
+      // readMoreAccess: false
     };
     this.getProperty = this.getProperty.bind(this);
     // this.clickMoreSum = this.clickMoreSum.bind(this)
@@ -82,7 +83,7 @@ export default class App extends React.Component {
         >
         <div>
           <NavBar />
-          <div className={app.outermostDiv}>
+          <div id='overviewDiv' className={app.outermostDiv}>
             <Waypoint
               // onEnter={() => document.getElementById('navOverview').style.display='flex'}
               onEnter={() => Object.assign(document.getElementById('navOverview').style,
@@ -119,13 +120,24 @@ export default class App extends React.Component {
                 <div className={app.amenIconContainer}>
                   <AmenitiesIcons amenitiesIcons={amenIcon} />
                   {/* <Amenities /> */}
+                  {/* <Amenities
+                    show={this.state.showAmens}
+                    onHide={amensClose}
+                    //   embedClick() {
+                    //   this.setState({
+                    //     showShare: false,
+                    //     showEmbed: true
+                    //   });
+                    // }
+                    embedClick={this.embedClick}
+                  /> */}
                   <a className={app.moreAmensLink}>Show all {amenList.length} amenities</a>
                 </div>
               </div>
               <div className={app.divider}></div>
               <div className='sleepingArrangements'>
                 <div>Sleeping arrangements</div>
-
+                <Sleeping />
               </div>
               <div className={app.divider}></div>
               <div className='accessibility'>
