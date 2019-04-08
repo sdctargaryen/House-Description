@@ -33,7 +33,7 @@ export default class NavBar extends React.Component {
   
     return(
       <div id='waypointNavbar' className={navbarstyle.navBar}>
-        <div>
+        <div className={navbarstyle.navOptionsGroup}>
           <span id='navOverview' className={navbarstyle.navOptions}><a href="#">Overview</a></span>·
           <span id='navReviews' className={navbarstyle.navOptions}><a href="#">Reviews</a></span>·
           <span id='navHost' className={navbarstyle.navOptions}><a href="#">The Host</a></span>·
