@@ -175,8 +175,8 @@ generateProperty = () => {
     },
     beds: {
       quantity: randomElement([1, 2, 3, 4, 5, 6]), 
-      bedType: xRandomElements(bedTypes, numBeds), 
-      iconUrl: xRandomElements(bedIcons, numBeds) // iconUrl
+      bedType: xRandomElements(bedTypes, this.quantity), 
+      iconUrl: xRandomElements(bedIcons, this.quantity) // iconUrl
     },
     amenities: {
       basic: xRandomElements(amenities, numAmenities),
