@@ -1,0 +1,12 @@
+.exit {
+  cursor: pointer;
+  border-radius: 100px;
+  height: 30px;
+  width: 30px;
+  margin-bottom: 10px
+}
+
+.exit:active{
+  transform: translateY(4px);
+  box-shadow: 0 1px grey;
+}

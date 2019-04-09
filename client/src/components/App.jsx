@@ -6,6 +6,7 @@ import GenOverview from './GenOverview';
 import HostOverview from './HostOverview';
 import NumberInfo from './NumberInfo';
 import AmenitiesIcons from './AmenitiesIcons';
+import Amenities from './Amenities';
 import Sleeping from './Sleeping';
 import app from './app.css';
 
@@ -20,7 +21,7 @@ export default class App extends React.Component {
       summary: [],
       // amenities
       amenList: [],
-      // amenNot: [],
+      amenNot: [],
       amenIcon: [],
       // beds
       beds: {},
@@ -72,8 +73,8 @@ export default class App extends React.Component {
   // }
 
   render() {
-    let { propertyInfo, host, beds, numBaths, summary, amenList, amenIcon } = this.state;
-    // console.log('in renderrrrrrr', amenIcon)
+    let { propertyInfo, host, beds, numBaths, summary, amenList, amenNot, amenIcon } = this.state;
+    let amensClose = () => this.setState({ showAmens: false });
     return (
       <div>
         <Waypoint
@@ -87,7 +88,7 @@ export default class App extends React.Component {
             <Waypoint
               // onEnter={() => document.getElementById('navOverview').style.display='flex'}
               onEnter={() => Object.assign(document.getElementById('navOverview').style,
-                {color:"black",fontWeight:"bold"})}
+                {color:"black",fontWeight:900})}
               onLeave={() => document.getElementById('navOverview').style.display='none'}
             >
             <div className='immediateContainerDiv'>
@@ -120,24 +121,19 @@ export default class App extends React.Component {
                 <div className={app.amenIconContainer}>
                   <AmenitiesIcons amenitiesIcons={amenIcon} />
                   {/* <Amenities /> */}
-                  {/* <Amenities
+                  <Amenities
                     show={this.state.showAmens}
                     onHide={amensClose}
-                    //   embedClick() {
-                    //   this.setState({
-                    //     showShare: false,
-                    //     showEmbed: true
-                    //   });
-                    // }
-                    embedClick={this.embedClick}
-                  /> */}
-                  <a className={app.moreAmensLink}>Show all {amenList.length} amenities</a>
+                    amenlist={amenList}
+                    amennot={amenNot}
+                  />
+                  <a className={app.moreAmensLink} onClick={() => this.setState({ showAmens: true })}>Show all {amenList.length} amenities</a>
                 </div>
               </div>
               <div className={app.divider}></div>
               <div className='sleepingArrangements'>
                 <div>Sleeping arrangements</div>
-                <Sleeping />
+                {/* <Sleeping beds={beds} /> */}
               </div>
               <div className={app.divider}></div>
               <div className='accessibility'>

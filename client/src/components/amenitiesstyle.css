@@ -1,0 +1,33 @@
+.exit {
+  cursor: pointer;
+  border-radius: 100px;
+  height: 30px;
+  width: 30px;
+  margin-bottom: 10px
+}
+
+.exit:active{
+  transform: translateY(4px);
+  box-shadow: 0 1px grey;
+}
+
+.heading{
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 18px
+}
+
+.eachAmenity{
+  margin: 10px
+}
+
+.eachUnincluded{
+  text-decoration: line-through;
+  color: grey;
+  margin: 10px
+}
+
+.divider{
+  margin: 24px 0px 24px 0px;
+  border-bottom: 1px solid #EBEBEB;
+}
