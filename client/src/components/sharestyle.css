@@ -10,3 +10,43 @@
   transform: translateY(4px);
   box-shadow: 0 1px grey;
 }
+
+.shareDesc{
+  padding-bottom: 30px;
+  border-bottom: 1px solid #EBEBEB;
+}
+
+.shareMethod{
+  display: flex;
+  flex-direction: row;
+  height: 90px;
+  padding-top: 30px;
+  border-bottom: 1px solid #EBEBEB;
+}
+
+.iconDiv{
+  width: 30px;
+  height: 30px
+}
+
+.shareFBIcon{
+  height: 30px;
+  width: 30px;
+
+}
+
+.shareTIcon{
+  height: 25px;
+  width: 25px
+}
+
+.shareIcon{
+  height: 17px;
+  width: 17px
+}
+
+.shareLink:hover{
+  text-decoration: underline;
+  cursor: pointer;
+  color: #008489;
+}
