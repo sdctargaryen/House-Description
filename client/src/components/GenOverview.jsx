@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import genover from './genoverview.css';
-import { CSSTransition } from 'react-transition-group';
   
 const GenOverview = (props) => {
   if(!props.readMoreSum){
