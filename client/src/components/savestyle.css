@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
 .exit {
   cursor: pointer;
   border-radius: 100px;
@@ -11,10 +13,104 @@
   box-shadow: 0 1px grey;
 }
 
+.save-modalTitle{
+  font-family:'Raleway', sans-serif !important;
+}
+
+.saveForm{
+  margin-top: 10px;
+  padding-top: 10px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.btnContain{
+  float: right
+}
+
+.saveInput{
+  width:100%;
+  margin: 15px 0px  
+}
+
 .cancelBtn{
-  margin-left: 10px
+  margin-left: 10px;
+  background-color: white !important;
+  color: #008489 !important;
+  border-color: #008489 !important;
 }
 
 .createBtn{
-  margin-left: 10px
+  margin-left: 10px;
+  background-color: #008489 !important;
+  border-color: #008489 !important;
+}
+
+.placeholder{
+  height: 450px;
+  width: 450px
+}
+
+.placeholderCancel{
+  height: 462px;
+  width: 450px
+}
+
+.createLinkContainer{
+  height: 84px;
+  padding-top: 20px
+}
+
+.createLink{
+  text-decoration: bold;
+  color: #008489 !important;
+  cursor: pointer;
+  height: 12px;
+}
+
+.createLink:hover{
+  text-decoration: underline !important
+}
+
+.smallCard{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 130px;
+  padding: 25px;
+  font-family:'Raleway', sans-serif !important;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  box-shadow: 3px 0px 45px gray
+}
+
+.propImg{
+  height: 80px;
+  width: 100px;
+  margin-right: 20px
+}
+
+.propertyName{
+  text-decoration: bold !important
+}
+
+.locationText{
+  font-size: 14px;
+}
+
+.rating{
+  display: flex;
+  flex-direction: row;
+  font-size: 14px
+}
+
+.stars{
+  height: 12px;
+  width: 12px;
+  margin-right: 5px;
+}
+
+.ratingText{
+  padding-top: 2px;
+  text-decoration: bold !important
 }
