@@ -26,12 +26,11 @@ export default class App extends React.Component {
       // beds
       beds: {},
       // read states
-      // readMoreSum: false,
+      readMoreSum: false,
       showAmens: false,
-      // readMoreAccess: false
     };
     this.getProperty = this.getProperty.bind(this);
-    // this.clickMoreSum = this.clickMoreSum.bind(this)
+    this.clickMoreSum = this.clickMoreSum.bind(this)
   }
 
   componentDidMount() {
@@ -59,18 +58,32 @@ export default class App extends React.Component {
 
   // clickMoreSum() {
   //   if (this.state.readMoreSum === false) {
+  //     // document.getElementById('readMoreBody').style.animation = 'fadeIn 1000ms forwards';
   //     document.getElementById('readMoreBody').style.display = 'flex';
   //     document.getElementById('link').innerHTML = 'Hide'
   //   } else {
-  //     document.getElementById('readMoreBody').style.display = 'none'
+  //     // document.getElementById('readMoreBody').classList.toggle('readLess');
+  //     // console.log(document.getElementById('readMoreBody').classList);
+  //     document.getElementById('readMoreBody').style.animation = 'fadeOut 1000ms forwards';
+  //     document.getElementById('readMoreBody').style.display = 'none';
   //     document.getElementById('link').innerHTML = 'Read more about the space'
 
   //   }
   //   this.setState({
   //     readMoreSum: (!this.state.readMoreSum)
   //   })
-
   // }
+
+  clickMoreSum() {
+    // if (this.state.readMoreSum === false) {
+    //   document.getElementById('link').innerHTML = 'Hide';
+    // } else {
+    //   document.getElementById('link').innerHTML = 'Read more about the space';
+    // }
+    this.setState({
+      readMoreSum: (!this.state.readMoreSum)
+    })
+  }
 
   render() {
     let { propertyInfo, host, beds, numBaths, summary, amenList, amenNot, amenIcon } = this.state;
@@ -83,13 +96,19 @@ export default class App extends React.Component {
           bottomOffset='98%'
         >
         <div>
-          <NavBar />
+          <NavBar property={propertyInfo.title} location={propertyInfo.location} />
           <div id='overviewDiv' className={app.outermostDiv}>
             <Waypoint
-              // onEnter={() => document.getElementById('navOverview').style.display='flex'}
-              onEnter={() => Object.assign(document.getElementById('navOverview').style,
-                {color:"black",fontWeight:900})}
-              onLeave={() => document.getElementById('navOverview').style.display='none'}
+              onEnter={() => {
+                // Object.assign(document.getElementById('navOverview').style,
+                // {color:"black",fontWeight:900})
+                document.getElementById('navOverview').style.color = 'black';
+                document.getElementById('navOverview').style.fontWeight = '900';
+              }}
+              onLeave={() => {
+                document.getElementById('navOverview').style.color = '#008489';
+                document.getElementById('navOverview').style.fontWeight = 'normal';
+              }}
             >
             <div className='immediateContainerDiv'>
               <div className='titleCityHost'>
@@ -106,8 +125,8 @@ export default class App extends React.Component {
               <div className='notsummary'>
                 <GenOverview
                   summary={summary}
-                  // readMoreSum={this.state.readMoreSum}
-                  // clickMoreSum={this.clickMoreSum} 
+                  readMoreSum={this.state.readMoreSum}
+                  clickMoreSum={this.clickMoreSum} 
                   />
               </div>
               <div className='description'>
@@ -120,7 +139,6 @@ export default class App extends React.Component {
                 <div>Amenities</div>
                 <div className={app.amenIconContainer}>
                   <AmenitiesIcons amenitiesIcons={amenIcon} />
-                  {/* <Amenities /> */}
                   <Amenities
                     show={this.state.showAmens}
                     onHide={amensClose}

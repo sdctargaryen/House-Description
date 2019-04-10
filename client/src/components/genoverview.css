@@ -4,27 +4,17 @@
   font-family: 'Raleway', sans-serif;
 }
 
-/* .readMore{
+.readLess{
+  /* visibility: hidden;
+  height: 0px; */
+  flex-direction: column;
+  animation: fadeOut 700ms forwards;
+}
+
+.readMore{
   display: flex;
   flex-direction: column;
-} */
-
-.fade-enter {
-  opacity: 0.01;
-}
-
-.fade-enter.fade-enter-active {
-  opacity: 1;
-  transition: opacity 1300ms ease;
-}
-
-.fade-leave {
-  opacity: 1;
-}
-
-.fade-leave.fade-leave-active {
-  opacity: 0.01;
-  transition: opacity 1300ms ease;
+  animation: fadeIn 700ms forwards;
 }
 
 .readMoreLink{
@@ -35,7 +25,40 @@
   !important
 }
 
+.readMoreArrow{
+  height: 15px;
+  width: 15px;
+}
+
+.readLessArrow{
+  height: 15px;
+  width: 15px;
+  transform: scaleY(-1);
+}
+
 .readSummary{
   margin-top: 15px;
   font-weight: bold;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+  100% {
+    visibility: hidden;
+    height: 0;
+  }
 }
