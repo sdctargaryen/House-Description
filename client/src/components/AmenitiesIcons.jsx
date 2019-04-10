@@ -14,13 +14,13 @@ const AmenitiesIcons = (props) => {
     return(
       <table className={amenitiesiconstyle.table}>
         <tbody>
-          <tr>
+          <tr className={amenitiesiconstyle.tr}>
             <td><img src={icons[0]}/></td>
             <td><div>{names[0]}</div></td>
           </tr>
         </tbody>
         <tbody>
-          <tr>
+          <tr className={amenitiesiconstyle.tr}>
             <td><img src={icons[1]}/></td>
             <td><div>{names[1]}</div></td>
           </tr>
@@ -31,17 +31,17 @@ const AmenitiesIcons = (props) => {
     return(
       <table className={amenitiesiconstyle.table}>
         <tbody>
-          <tr>
+          <tr className={amenitiesiconstyle.tr}>
             <td><img src={icons[0]}/></td>
             <td><div>{names[0]}</div></td>
           </tr>
-          <tr>
+          <tr className={amenitiesiconstyle.tr}>
             <td><img src={icons[2]}/></td>
             <td><div>{names[2]}</div></td>
           </tr>
         </tbody>
         <tbody>
-          <tr>
+          <tr className={amenitiesiconstyle.tr}>
             <td><img src={icons[1]}/></td>
             <td><div>{names[1]}</div></td>
           </tr>
@@ -52,21 +52,21 @@ const AmenitiesIcons = (props) => {
     return(
       <table className={amenitiesiconstyle.table}>
         <tbody>
-          <tr>
+          <tr className={amenitiesiconstyle.tr}>
             <td><img src={icons[0]}/></td>
             <td><div>{names[0]}</div></td>
           </tr>
-          <tr>
+          <tr className={amenitiesiconstyle.tr}>
             <td><img src={icons[2]}/></td>
             <td><div>{names[2]}</div></td>
           </tr>
         </tbody>
         <tbody>
-          <tr>
+          <tr className={amenitiesiconstyle.tr}>
             <td><img src={icons[1]}/></td>
             <td><div>{names[1]}</div></td>
           </tr>
-          <tr>
+          <tr className={amenitiesiconstyle.tr}>
             <td><img src={icons[3]}/></td>
             <td><div>{names[3]}</div></td>
           </tr>
