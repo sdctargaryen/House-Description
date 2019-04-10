@@ -60,11 +60,15 @@ export default class NavBar extends React.Component {
           <Share
             show={this.state.showShare}
             onHide={shareClose}
+            property={this.props.property}
+            location={this.props.location}
           />
           <span className={navbarstyle.navOptions} onClick={() => this.setState({ showSave: true })}><img className={navbarstyle.icons} src='https://s3-us-west-1.amazonaws.com/sharebnbicons/heart+icon.png'></img><a>Save</a></span>
           <Save
             show={this.state.showSave}
             onHide={saveClose}
+            property={this.props.property}
+            location={this.props.location}
           />
         </div>
       </div>
