@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+.embedBody{
+  padding: 0px !important;
+  font-family: 'Raleway', sans-serif;
+}
+
+.exit {
+  cursor: pointer;
+  border-radius: 100px;
+  height: 30px;
+  width: 30px;
+  margin-bottom: 10px
+}
+
+.exit:active{
+  transform: translateY(4px);
+  box-shadow: 0 1px grey;
+}
+
+.colContainer{
+  width: 100%;
+  display: flex;
+  flex-direction: row
+}
+
+.leftCol{
+  width: 50%;
+  padding: 50px
+}
+
+.rightCol{
+  width: 50%;
+  height: 100%;
+  background: #f2f2f2;
+  padding: 50px 74px 50px 74px
+}
+
+.embedTitle{
+  font-weight: 900;
+  margin: 20px 0px 20px 0px
+}
+
+.embedSubtitle{
+  margin-top: 5px;
+  margin-bottom: 10px
+}
+
+.textareaStyle{
+  width: 100%
+}
+
+.copyBtn{
+  margin-top: 10px;
+  background-color: #008489 !important;
+  border-color: #008489 !important;
+}
+
+.customize{
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  color: #008489 !important;
+  cursor: pointer;
+}
+
+.readMoreArrow{
+  width: 15px;
+  height: 15px;
+  margin-left: 5px
+}
+
+.checkOption{
+  display: flex;
+  flex-direction: row
+}
+
+.customCheck{
+  display: none;
+  flex-direction: column
+}
+
+.checkbox{
+  height: 18px;
+  width: 18px;
+  border: 1px solid #f2f2f2
+}
+
+.checkText{
+  padding-left: 10px;
+}
+
+.propertyCard{
+  background: white;
+  box-shadow: 3px 0px 45px gray;
+  width: 420px;
+}
+
+.carouselCont{
+  height: 280px;
+  width: 420px;
+  position: relative;
+}
+
+.preview{
+  position: absolute;
+  display: inline-block;
+  top: 20px;
+  left: 16px;
+  background-color: rgba(0, 0, 0, 0.15);
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-bottom: 2px;
+  border-radius: 2px
+}
+
+.previewText{
+  font-size: 12px;
+  font-weight: 800;
+  color: white
+}
+
+.propImg{
+  height: 280px;
+  width: 420px;
+}
+
+.heartCont{
+  position: absolute;
+  display: inline-block;
+  top: 20px;
+  right: 16px;
+}
+
+.heart{
+  height:32px;
+  width: 32px;
+  cursor: pointer;
+}
+
+.leftArrow{
+  cursor: pointer;
+  position: absolute;
+  left: 5px;
+  top: 130px;
+  height: 100%;
+  width: 70px
+}
+
+.rightArrow{
+  cursor: pointer;
+  position: absolute;
+  transform: scaleX(-1);
+  right: 5px;
+  top: 130px;
+  height: 100%;
+  width: 70px
+}
+
+.propertyInfo{
+  padding: 20px;
+  border-bottom: 1px solid #EBEBEB;
+}
+
+.propertyName{
+  text-decoration: bold !important
+}
+
+.locationText{
+  font-size: 14px;
+}
+
+.rating{
+  display: flex;
+  flex-direction: row;
+  font-size: 14px
+}
+
+.stars{
+  height: 12px;
+  width: 12px;
+  margin-right: 5px;
+}
+
+.ratingText{
+  padding-top: 2px;
+  text-decoration: bold !important
+}
+
+.cardFooter{
+  height: 60px;
+  width: 420px;
+  font-size: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between
+}
+
+.footerText{
+  cursor: pointer;
+  color: #008489 !important;
+}
+
+.footerLogo{
+  height: 24px;
+  width: 24px
+}

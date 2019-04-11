@@ -2,6 +2,7 @@ import React from 'react';
 import navbarstyle from './navbar.css';
 import Save from './Save';
 import Share from './Share';
+import EmbedModal from './EmbedModal';
 
 export default class NavBar extends React.Component {
   constructor(props){
@@ -9,8 +10,10 @@ export default class NavBar extends React.Component {
     this.state = {
       // showing: false
       showShave: false,
-      showSave: false
+      showSave: false,
+      showEmbed: false
     }
+    this.openEmbedModal = this.openEmbedModal.bind(this)
   }
   
   clickOverview() {
@@ -43,9 +46,16 @@ export default class NavBar extends React.Component {
     )
   }
 
+  openEmbedModal(){
+    this.setState({
+      showEmbed: true
+    })
+  }
+
   render(){
     let shareClose = () => this.setState({ showShare: false });
     let saveClose = () => this.setState({ showSave: false });
+    let embedClose = () => this.setState({ showEmbed: false });
     return(
       <div id='waypointNavbar' className={navbarstyle.navBar}>
         <div className={navbarstyle.navOptionsGroup}>
@@ -62,11 +72,19 @@ export default class NavBar extends React.Component {
             onHide={shareClose}
             property={this.props.property}
             location={this.props.location}
+            showEmbedFunc={this.openEmbedModal}
           />
           <span className={navbarstyle.navOptions} onClick={() => this.setState({ showSave: true })}><img className={navbarstyle.icons} src='https://s3-us-west-1.amazonaws.com/sharebnbicons/heart+icon.png'></img><a>Save</a></span>
           <Save
             show={this.state.showSave}
             onHide={saveClose}
+            property={this.props.property}
+            location={this.props.location}
+          />
+          {/* embed modal */}
+          <EmbedModal
+            show={this.state.showEmbed}
+            onHide={embedClose}
             property={this.props.property}
             location={this.props.location}
           />
