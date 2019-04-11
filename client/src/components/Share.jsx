@@ -54,7 +54,7 @@ class Share extends React.Component {
             </div>
             <div className={sharestyle.shareMethod}>
               <div className={sharestyle.iconDiv}><img src="https://s3-us-west-1.amazonaws.com/sharebnbicons/new+embed.png" className={sharestyle.shareIcon} /></div>
-              <div className={sharestyle.shareLink}>Embed</div>
+              <div className={sharestyle.shareLink} onClick={() => {this.props.showEmbedFunc(); this.props.onHide()}}>Embed</div>
             </div>
           </div>
         </Modal.Body>

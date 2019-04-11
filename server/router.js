@@ -3,7 +3,7 @@ const controller = require('./controller.js');
 
 //req.body
 router
-  .route('/')
+  .route('/desc')
   .get(controller.get)
 
 module.exports = router

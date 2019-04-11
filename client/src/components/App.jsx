@@ -39,7 +39,7 @@ export default class App extends React.Component {
 
   getProperty() {
     axios
-      .get('/api')
+      .get('/api/desc')
       .then((data) => {
         // console.log(data.data[0])
         this.setState({
