@@ -1,5 +1,6 @@
 import React from 'react';
 import navbarstyle from './navbar.css';
+import axios from 'axios';
 import Save from './Save';
 import Share from './Share';
 import EmbedModal from './EmbedModal';
@@ -8,14 +9,35 @@ export default class NavBar extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      // showing: false
+      property: '',
+      location: '',
       showShave: false,
       showSave: false,
       showEmbed: false
     }
+    this.randomGet = this.randomGet.bind(this)
     this.openEmbedModal = this.openEmbedModal.bind(this)
   }
-  
+
+  //
+  componentDidMount(){
+    this.randomGet()
+  }
+
+  randomGet(){
+    axios
+    .get('/api/desc')
+    .then((data) => {
+      this.setState({
+        property: data.data[0].propertyInfo.title,
+        location: data.data[0].propertyInfo.location,
+      })
+    })
+    .catch((err) => { console.error(err) })
+  }
+
+  //
+
   clickOverview() {
     document.getElementById('overviewDiv').scrollIntoView(
       {behavior: 'smooth'}
@@ -70,23 +92,22 @@ export default class NavBar extends React.Component {
           <Share
             show={this.state.showShare}
             onHide={shareClose}
-            property={this.props.property}
-            location={this.props.location}
+            property={this.state.property}
+            location={this.state.location}
             showEmbedFunc={this.openEmbedModal}
           />
           <span className={navbarstyle.navOptions} onClick={() => this.setState({ showSave: true })}><img className={navbarstyle.icons} src='https://s3-us-west-1.amazonaws.com/sharebnbicons/heart+icon.png'></img><a>Save</a></span>
           <Save
             show={this.state.showSave}
             onHide={saveClose}
-            property={this.props.property}
-            location={this.props.location}
+            property={this.state.property}
+            location={this.state.location}
           />
-          {/* embed modal */}
           <EmbedModal
             show={this.state.showEmbed}
             onHide={embedClose}
-            property={this.props.property}
-            location={this.props.location}
+            property={this.state.property}
+            location={this.state.location}
           />
         </div>
       </div>

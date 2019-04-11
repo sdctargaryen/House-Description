@@ -41,7 +41,6 @@ export default class App extends React.Component {
     axios
       .get('/api/desc')
       .then((data) => {
-        // console.log(data.data[0])
         this.setState({
           propertyInfo: data.data[0].propertyInfo,
           host: data.data[0].host,
@@ -51,35 +50,12 @@ export default class App extends React.Component {
           amenList: data.data[0].amenities.basic,
           amenNot: data.data[0].amenities.notIncluded,
           amenIcon: data.data[0].amenities.iconUrl,
-        }, () => {console.log(this.state.amenIcon)})
+        })
       })
       .catch((err) => { console.error(err) })
   }
 
-  // clickMoreSum() {
-  //   if (this.state.readMoreSum === false) {
-  //     // document.getElementById('readMoreBody').style.animation = 'fadeIn 1000ms forwards';
-  //     document.getElementById('readMoreBody').style.display = 'flex';
-  //     document.getElementById('link').innerHTML = 'Hide'
-  //   } else {
-  //     // document.getElementById('readMoreBody').classList.toggle('readLess');
-  //     // console.log(document.getElementById('readMoreBody').classList);
-  //     document.getElementById('readMoreBody').style.animation = 'fadeOut 1000ms forwards';
-  //     document.getElementById('readMoreBody').style.display = 'none';
-  //     document.getElementById('link').innerHTML = 'Read more about the space'
-
-  //   }
-  //   this.setState({
-  //     readMoreSum: (!this.state.readMoreSum)
-  //   })
-  // }
-
   clickMoreSum() {
-    // if (this.state.readMoreSum === false) {
-    //   document.getElementById('link').innerHTML = 'Hide';
-    // } else {
-    //   document.getElementById('link').innerHTML = 'Read more about the space';
-    // }
     this.setState({
       readMoreSum: (!this.state.readMoreSum)
     })
@@ -90,13 +66,13 @@ export default class App extends React.Component {
     let amensClose = () => this.setState({ showAmens: false });
     return (
       <div>
-        <Waypoint
+        {/* <Waypoint
           onEnter={() => document.getElementById('waypointNavbar').style.display='flex'}
           onLeave={() => document.getElementById('waypointNavbar').style.display='none'}
           bottomOffset='98%'
-        >
+        > */}
         <div>
-          <NavBar property={propertyInfo.title} location={propertyInfo.location} />
+          {/* <NavBar property={propertyInfo.title} location={propertyInfo.location} /> */}
           <div id='overviewDiv' className={app.outermostDiv}>
             <Waypoint
               onEnter={() => {
@@ -163,7 +139,7 @@ export default class App extends React.Component {
             </Waypoint>
           </div>
         </div>
-        </Waypoint>
+        {/* </Waypoint> */}
       </div>
     )
   }
