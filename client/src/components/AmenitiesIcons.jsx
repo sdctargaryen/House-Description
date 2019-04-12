@@ -13,14 +13,14 @@ const AmenitiesIcons = (props) => {
   if (props.amenitiesIcons.length === 2) {
     return(
       <table className={amenitiesiconstyle.table}>
-        <tbody>
-          <tr className={amenitiesiconstyle.tr}>
+        <tbody className={amenitiesiconstyle.tbodyTag}>
+          <tr className={amenitiesiconstyle.trTag}>
             <td><img className={amenitiesiconstyle.amenIcon} src={icons[0]}/></td>
             <td><div>{names[0]}</div></td>
           </tr>
         </tbody>
-        <tbody>
-          <tr className={amenitiesiconstyle.tr}>
+        <tbody className={amenitiesiconstyle.tbodyTag}>
+          <tr className={amenitiesiconstyle.trTag}>
             <td><img className={amenitiesiconstyle.amenIcon} src={icons[1]}/></td>
             <td><div>{names[1]}</div></td>
           </tr>
@@ -29,19 +29,19 @@ const AmenitiesIcons = (props) => {
     )
   } else if (props.amenitiesIcons.length === 3) {
     return(
-      <table className={amenitiesiconstyle.table}>
-        <tbody>
-          <tr className={amenitiesiconstyle.tr}>
+      <table className={amenitiesiconstyle.tableTag}>
+        <tbody className={amenitiesiconstyle.tbodyTag}>
+          <tr className={amenitiesiconstyle.trTag}>
             <td><img className={amenitiesiconstyle.amenIcon} src={icons[0]}/></td>
             <td><div>{names[0]}</div></td>
           </tr>
-          <tr className={amenitiesiconstyle.tr}>
+          <tr className={amenitiesiconstyle.trTag}>
             <td><img className={amenitiesiconstyle.amenIcon} src={icons[2]}/></td>
             <td><div>{names[2]}</div></td>
           </tr>
         </tbody>
-        <tbody>
-          <tr className={amenitiesiconstyle.tr}>
+        <tbody className={amenitiesiconstyle.tbodyTag}>
+          <tr className={amenitiesiconstyle.trTag}>
             <td><img className={amenitiesiconstyle.amenIcon} src={icons[1]}/></td>
             <td><div>{names[1]}</div></td>
           </tr>
@@ -50,23 +50,23 @@ const AmenitiesIcons = (props) => {
     )
   } else if (props.amenitiesIcons.length === 4) {
     return(
-      <table className={amenitiesiconstyle.table}>
-        <tbody>
-          <tr className={amenitiesiconstyle.tr}>
+      <table className={amenitiesiconstyle.tableTag}>
+        <tbody className={amenitiesiconstyle.tbodyTag}>
+          <tr className={amenitiesiconstyle.trTag}>
             <td><img className={amenitiesiconstyle.amenIcon} src={icons[0]}/></td>
             <td><div>{names[0]}</div></td>
           </tr>
-          <tr className={amenitiesiconstyle.tr}>
+          <tr className={amenitiesiconstyle.trTag}>
             <td><img className={amenitiesiconstyle.amenIcon} src={icons[2]}/></td>
             <td><div>{names[2]}</div></td>
           </tr>
         </tbody>
-        <tbody>
-          <tr className={amenitiesiconstyle.tr}>
+        <tbody className={amenitiesiconstyle.tbodyTag}>
+          <tr className={amenitiesiconstyle.trTag}>
             <td><img className={amenitiesiconstyle.amenIcon} src={icons[1]}/></td>
             <td><div>{names[1]}</div></td>
           </tr>
-          <tr className={amenitiesiconstyle.tr}>
+          <tr className={amenitiesiconstyle.trTag}>
             <td><img className={amenitiesiconstyle.amenIcon} src={icons[3]}/></td>
             <td><div>{names[3]}</div></td>
           </tr>

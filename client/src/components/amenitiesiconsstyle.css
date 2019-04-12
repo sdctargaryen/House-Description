@@ -1,15 +1,15 @@
-#description table{
+.tableTag{
   display: flex;
   flex-direction: row
 }
 
-#description tbody{
+.tbodyTag{
   width: 333px;
   margin: 5px 0px 10px 0px
 
 }
 
-#description tr{
+.trTag{
   height: 45px
 }
 
