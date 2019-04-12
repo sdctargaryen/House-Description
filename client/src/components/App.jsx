@@ -7,7 +7,7 @@ import HostOverview from './HostOverview';
 import NumberInfo from './NumberInfo';
 import AmenitiesIcons from './AmenitiesIcons';
 import Amenities from './Amenities';
-import Sleeping from './Sleeping';
+// import Sleeping from './Sleeping';
 import app from './app.css';
 
 export default class App extends React.Component {
