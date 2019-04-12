@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { Waypoint } from 'react-waypoint';
 import NavBar from './NavBar';
 import GenOverview from './GenOverview';
 import HostOverview from './HostOverview';
@@ -66,26 +65,9 @@ export default class App extends React.Component {
     let amensClose = () => this.setState({ showAmens: false });
     return (
       <div>
-        {/* <Waypoint
-          onEnter={() => document.getElementById('waypointNavbar').style.display='flex'}
-          onLeave={() => document.getElementById('waypointNavbar').style.display='none'}
-          bottomOffset='98%'
-        > */}
         <div>
-          {/* <NavBar property={propertyInfo.title} location={propertyInfo.location} /> */}
+          <NavBar property={propertyInfo.title} location={propertyInfo.location} />
           <div id='overviewDiv' className={app.outermostDiv}>
-            <Waypoint
-              onEnter={() => {
-                // Object.assign(document.getElementById('navOverview').style,
-                // {color:"black",fontWeight:900})
-                document.getElementById('navOverview').style.color = 'black';
-                document.getElementById('navOverview').style.fontWeight = '900';
-              }}
-              onLeave={() => {
-                document.getElementById('navOverview').style.color = '#008489';
-                document.getElementById('navOverview').style.fontWeight = 'normal';
-              }}
-            >
             <div className='immediateContainerDiv'>
               <div className='titleCityHost'>
                 <HostOverview propertyInfo={propertyInfo} host={host} />
@@ -136,10 +118,8 @@ export default class App extends React.Component {
               </div>
               <div className={app.divider}></div>
             </div>
-            </Waypoint>
           </div>
         </div>
-        {/* </Waypoint> */}
       </div>
     )
   }

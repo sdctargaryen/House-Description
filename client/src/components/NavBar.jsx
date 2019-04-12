@@ -9,11 +9,10 @@ export default class NavBar extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      property: '',
-      location: '',
       showShave: false,
       showSave: false,
-      showEmbed: false
+      showEmbed: false,
+      currentScrollHeight: 0
     }
     this.randomGet = this.randomGet.bind(this)
     this.openEmbedModal = this.openEmbedModal.bind(this)
@@ -21,7 +20,12 @@ export default class NavBar extends React.Component {
 
   //
   componentDidMount(){
-    this.randomGet()
+    // this.randomGet();
+    window.addEventListener('scroll', () => {
+      this.setState({currentScrollHeight: window.scrollY}, () => {
+        console.log(this.state.currentScrollHeight)
+      });
+    })
   }
 
   randomGet(){
@@ -78,37 +82,43 @@ export default class NavBar extends React.Component {
     let shareClose = () => this.setState({ showShare: false });
     let saveClose = () => this.setState({ showSave: false });
     let embedClose = () => this.setState({ showEmbed: false });
+
+    let isShowing = Math.min(Math.floor(380 / this.state.currentScrollHeight), 1);
+    var visible = !!isShowing ? 'translateY(-50px)' : 'translateY(0px)';
+
     return(
-      <div id='waypointNavbar' className={navbarstyle.navBar}>
-        <div className={navbarstyle.navOptionsGroup}>
-          <span id='navOverview' className={navbarstyle.navOptions}><a onClick={() => this.clickOverview()}>Overview</a></span>·
-          <span id='navReviews' className={navbarstyle.navOptions}><a onClick={() => this.clickReviews()}>Reviews</a></span>·
-          <span id='navHost' className={navbarstyle.navOptions}><a onClick={() => this.clickHost()}>The Host</a></span>·
-          <span id='navLocation' className={navbarstyle.navOptions}><a onClick={() => this.clickLocation()}>Location</a></span>·
-          <span id='navPolicies' className={navbarstyle.navOptions}><a onClick={() => this.clickPolicies()}>Policies</a></span>
-        </div>
-        <div className='rightBtns'>
-          <span className={navbarstyle.navOptions} onClick={() => this.setState({ showShare: true })}><img className={navbarstyle.icons} src='https://s3-us-west-1.amazonaws.com/sharebnbicons/share+icon.png'></img><a>Share</a></span>
-          <Share
-            show={this.state.showShare}
-            onHide={shareClose}
-            property={this.state.property}
-            location={this.state.location}
-            showEmbedFunc={this.openEmbedModal}
-          />
-          <span className={navbarstyle.navOptions} onClick={() => this.setState({ showSave: true })}><img className={navbarstyle.icons} src='https://s3-us-west-1.amazonaws.com/sharebnbicons/heart+icon.png'></img><a>Save</a></span>
-          <Save
-            show={this.state.showSave}
-            onHide={saveClose}
-            property={this.state.property}
-            location={this.state.location}
-          />
-          <EmbedModal
-            show={this.state.showEmbed}
-            onHide={embedClose}
-            property={this.state.property}
-            location={this.state.location}
-          />
+      <div className={navbarstyle.navBar} style={{transform: `${visible}`, transition: 'transform 300ms ease-in'}}>
+        <div className={navbarstyle.innerNavCont}>
+          <div className={navbarstyle.navOptionsGroup}>
+            <span id='navOverview' className={navbarstyle.navOptions}><a onClick={() => this.clickOverview()}>Overview</a></span>·
+            <span id='navReviews' className={navbarstyle.navOptions}><a onClick={() => this.clickReviews()}>Reviews</a></span>·
+            <span id='navHost' className={navbarstyle.navOptions}><a onClick={() => this.clickHost()}>The Host</a></span>·
+            <span id='navLocation' className={navbarstyle.navOptions}><a onClick={() => this.clickLocation()}>Location</a></span>·
+            <span id='navPolicies' className={navbarstyle.navOptions}><a onClick={() => this.clickPolicies()}>Policies</a></span>
+          </div>
+          <div className='rightBtns'>
+            <span className={navbarstyle.navOptions} onClick={() => this.setState({ showShare: true })}><img className={navbarstyle.icons} src='https://s3-us-west-1.amazonaws.com/sharebnbicons/share+icon.png'></img><a>Share</a></span>
+            <Share
+              show={this.state.showShare}
+              onHide={shareClose}
+              property={this.props.property}
+              location={this.props.location}
+              showEmbedFunc={this.openEmbedModal}
+            />
+            <span className={navbarstyle.navOptions} onClick={() => this.setState({ showSave: true })}><img className={navbarstyle.icons} src='https://s3-us-west-1.amazonaws.com/sharebnbicons/heart+icon.png'></img><a>Save</a></span>
+            <Save
+              show={this.state.showSave}
+              onHide={saveClose}
+              property={this.props.property}
+              location={this.props.location}
+            />
+            <EmbedModal
+              show={this.state.showEmbed}
+              onHide={embedClose}
+              property={this.props.property}
+              location={this.props.location}
+            />
+          </div>
         </div>
       </div>
     )

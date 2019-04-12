@@ -17,21 +17,26 @@ a:visited{color: #008489} */
 }
 
 .navBar {
-  display: none;
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
   top: 0;
   border-bottom: 1px solid #EBEBEB;
-  flex-direction: row;
   justify-content: space-between;
   background-color: white;
   height: 50px;
-  /* width: 90%; */
+  width: 100%;
   font-family: 'Raleway', sans-serif;
   font-size: 14px;
-  align-items: flex-end;
   padding: 15px 11.5%;
   z-index: 5;
+
+}
+
+.innerNavCont{
+  display: flex;
+  flex-direction: row;
+  /* align-items: flex-end; */
+  justify-content: space-between;
+  width: 1048px
 }
 
 .navOptions {
