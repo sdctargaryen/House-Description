@@ -78,7 +78,7 @@ export default class EmbedModal extends React.Component {
           <div className={embedstyle.colContainer}>
             <div className={embedstyle.leftCol}>
               <div className={embedstyle.exit}>
-                <img src='https://s3-us-west-1.amazonaws.com/sharebnbicons/close+icon.png' onClick={this.props.onHide}></img>
+                <img className={embedstyle.exitImg} src='https://s3-us-west-1.amazonaws.com/sharebnbicons/close+icon.png' onClick={this.props.onHide}></img>
               </div>
               <div><h1 className={embedstyle.embedTitle}>Embed this home</h1></div>
               <div className={embedstyle.embedSubtitle}>Copy and paste the following HTML into your website code:</div>

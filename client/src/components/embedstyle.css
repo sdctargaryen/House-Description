@@ -18,6 +18,11 @@
   box-shadow: 0 1px grey;
 }
 
+.exitImg{
+  width: 30px;
+  height: 30px
+}
+
 .colContainer{
   width: 100%;
   display: flex;
