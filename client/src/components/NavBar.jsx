@@ -18,29 +18,11 @@ export default class NavBar extends React.Component {
     this.openEmbedModal = this.openEmbedModal.bind(this)
   }
 
-  //
   componentDidMount(){
-    // this.randomGet();
     window.addEventListener('scroll', () => {
-      this.setState({currentScrollHeight: window.scrollY}, () => {
-        console.log(this.state.currentScrollHeight)
-      });
+      this.setState({currentScrollHeight: window.scrollY});
     })
   }
-
-  randomGet(){
-    axios
-    .get('/api/desc')
-    .then((data) => {
-      this.setState({
-        property: data.data[0].propertyInfo.title,
-        location: data.data[0].propertyInfo.location,
-      })
-    })
-    .catch((err) => { console.error(err) })
-  }
-
-  //
 
   clickOverview() {
     document.getElementById('overviewDiv').scrollIntoView(
