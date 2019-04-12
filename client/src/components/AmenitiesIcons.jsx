@@ -15,13 +15,13 @@ const AmenitiesIcons = (props) => {
       <table className={amenitiesiconstyle.table}>
         <tbody>
           <tr className={amenitiesiconstyle.tr}>
-            <td><img src={icons[0]}/></td>
+            <td><img className={amenitiesiconstyle.amenIcon} src={icons[0]}/></td>
             <td><div>{names[0]}</div></td>
           </tr>
         </tbody>
         <tbody>
           <tr className={amenitiesiconstyle.tr}>
-            <td><img src={icons[1]}/></td>
+            <td><img className={amenitiesiconstyle.amenIcon} src={icons[1]}/></td>
             <td><div>{names[1]}</div></td>
           </tr>
         </tbody>
@@ -32,17 +32,17 @@ const AmenitiesIcons = (props) => {
       <table className={amenitiesiconstyle.table}>
         <tbody>
           <tr className={amenitiesiconstyle.tr}>
-            <td><img src={icons[0]}/></td>
+            <td><img className={amenitiesiconstyle.amenIcon} src={icons[0]}/></td>
             <td><div>{names[0]}</div></td>
           </tr>
           <tr className={amenitiesiconstyle.tr}>
-            <td><img src={icons[2]}/></td>
+            <td><img className={amenitiesiconstyle.amenIcon} src={icons[2]}/></td>
             <td><div>{names[2]}</div></td>
           </tr>
         </tbody>
         <tbody>
           <tr className={amenitiesiconstyle.tr}>
-            <td><img src={icons[1]}/></td>
+            <td><img className={amenitiesiconstyle.amenIcon} src={icons[1]}/></td>
             <td><div>{names[1]}</div></td>
           </tr>
         </tbody>
@@ -53,21 +53,21 @@ const AmenitiesIcons = (props) => {
       <table className={amenitiesiconstyle.table}>
         <tbody>
           <tr className={amenitiesiconstyle.tr}>
-            <td><img src={icons[0]}/></td>
+            <td><img className={amenitiesiconstyle.amenIcon} src={icons[0]}/></td>
             <td><div>{names[0]}</div></td>
           </tr>
           <tr className={amenitiesiconstyle.tr}>
-            <td><img src={icons[2]}/></td>
+            <td><img className={amenitiesiconstyle.amenIcon} src={icons[2]}/></td>
             <td><div>{names[2]}</div></td>
           </tr>
         </tbody>
         <tbody>
           <tr className={amenitiesiconstyle.tr}>
-            <td><img src={icons[1]}/></td>
+            <td><img className={amenitiesiconstyle.amenIcon} src={icons[1]}/></td>
             <td><div>{names[1]}</div></td>
           </tr>
           <tr className={amenitiesiconstyle.tr}>
-            <td><img src={icons[3]}/></td>
+            <td><img className={amenitiesiconstyle.amenIcon} src={icons[3]}/></td>
             <td><div>{names[3]}</div></td>
           </tr>
         </tbody>

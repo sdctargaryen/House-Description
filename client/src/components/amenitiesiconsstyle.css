@@ -1,19 +1,19 @@
-table{
+#description table{
   display: flex;
   flex-direction: row
 }
 
-tbody{
+#description tbody{
   width: 333px;
   margin: 5px 0px 10px 0px
 
 }
 
-tr{
+#description tr{
   height: 45px
 }
 
-img{
+.amenIcon{
   width: 30px;
   height: 30px;
 
