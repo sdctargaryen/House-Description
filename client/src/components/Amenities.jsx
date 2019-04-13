@@ -13,12 +13,12 @@ class Amenities extends React.Component {
     return(
       <Modal {...this.props}>
         <Modal.Body>
-          <div className={amenitiesstyle.exit}><img src='https://s3-us-west-1.amazonaws.com/sharebnbicons/close+icon.png' onClick={this.props.onHide}></img></div>
+          <div className={amenitiesstyle.exit}><img className={amenitiesstyle.exitImg} src='https://s3-us-west-1.amazonaws.com/sharebnbicons/close+icon.png' onClick={this.props.onHide}></img></div>
           <div className={amenitiesstyle.heading}>Amenities</div>
           {this.props.amenlist.map((amenity, index)=>{
             return(
               <div>
-                <div key={index} className={amenitiesstyle.eachAmenity}>{amenity}</div>
+                <div key={index + 100} className={amenitiesstyle.eachAmenity}>{amenity}</div>
                 <div className={amenitiesstyle.divider}></div>
               </div>
             )

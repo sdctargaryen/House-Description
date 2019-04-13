@@ -36,6 +36,11 @@
   transform: scaleY(-1);
 }
 
+.readMoreTitles{
+  margin: 10px 0px 10px 0px;
+  text-decoration: bold
+}
+
 .readSummary{
   margin-top: 15px;
   font-weight: bold;

@@ -8,7 +8,7 @@ const GenOverview = (props) => {
         <div>
           <div className={genover.summary}>{props.summary[0]}</div>
           <div id='readMoreBody' className={genover.readLess}>
-            <div>The space</div>
+            <div className={genover.readMoreTitles} >The space</div>
             <div>{props.summary.slice(1)}</div>
           </div>
           <div className={genover.readSummary}>
@@ -25,16 +25,16 @@ const GenOverview = (props) => {
         <div>
           <div className={genover.summary}>{props.summary[0]}</div>
           <div id='readMoreBody' className={genover.readLess}>
-            <div>The space</div>
+            <div className={genover.readMoreTitles} >The space</div>
             <div>{props.summary.slice(1)}</div>
-            <div>Guest access</div>
+            <div className={genover.readMoreTitles} >Guest access</div>
             <div>{props.summary.slice(3)}</div>
-            <div>Interaction with guests</div>
+            <div className={genover.readMoreTitles} >Interaction with guests</div>
             <div>{props.summary.slice(4)}</div>
-            <div>Other things to note</div>
-            <div>License or registration number</div>
-            <div>HRLA-0002829</div>
-            <a href="#">Learn more about this number</a>
+            <div className={genover.readMoreTitles} >Other things to note</div>
+            <div className={genover.readMoreTitles} >License or registration number</div>
+            <div className={genover.readMoreTitles} >HRLA-0002829</div>
+            <a className={genover.readMoreTitles} href="#">Learn more about this number</a>
           </div>
           <div className={genover.readSummary}>
             <a id='link' className={genover.readMoreLink} onClick={props.clickMoreSum}>
@@ -60,7 +60,7 @@ const GenOverview = (props) => {
         <div>
           <div className={genover.summary}>{props.summary[0]}</div>
           <div id='readMoreBody' className={genover.readMore}>
-            <div>The space</div>
+            <div className={genover.readMoreTitles} >The space</div>
             <div>{props.summary.slice(1)}</div>
           </div>
           <div className={genover.readSummary}>
@@ -77,16 +77,16 @@ const GenOverview = (props) => {
         <div>
           <div className={genover.summary}>{props.summary[0]}</div>
           <div id='readMoreBody' className={genover.readMore}>
-            <div>The space</div>
+            <div className={genover.readMoreTitles} >The space</div>
             <div>{props.summary.slice(1)}</div>
-            <div>Guest access</div>
+            <div className={genover.readMoreTitles} >Guest access</div>
             <div>{props.summary.slice(3)}</div>
-            <div>Interaction with guests</div>
+            <div className={genover.readMoreTitles} >Interaction with guests</div>
             <div>{props.summary.slice(4)}</div>
-            <div>Other things to note</div>
-            <div>License or registration number</div>
-            <div>HRLA-0002829</div>
-            <a href="#">Learn more about this number</a>
+            <div className={genover.readMoreTitles} >Other things to note</div>
+            <div className={genover.readMoreTitles} >License or registration number</div>
+            <div className={genover.readMoreTitles} >HRLA-0002829</div>
+            <a className={genover.readMoreTitles} href="#">Learn more about this number</a>
           </div>
           <div className={genover.readSummary}>
             <a id='link' className={genover.readMoreLink} onClick={props.clickMoreSum}>
