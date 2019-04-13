@@ -11,6 +11,11 @@
   box-shadow: 0 1px grey;
 }
 
+.exitImg{
+  height: 30px;
+  width: 30px;
+}
+
 .heading{
   margin-bottom: 10px;
   font-weight: bold;

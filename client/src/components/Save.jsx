@@ -51,7 +51,7 @@ class Save extends React.Component {
       return(
         <Modal {...this.props}>
           <Modal.Body>
-            <div className={savestyle.exit}><img src='https://s3-us-west-1.amazonaws.com/sharebnbicons/close+icon.png' onClick={this.closeModal}></img></div>
+            <div className={savestyle.exit}><img className={savestyle.exitImg} src='https://s3-us-west-1.amazonaws.com/sharebnbicons/close+icon.png' onClick={this.closeModal}></img></div>
             <h4 className="save-modalTitle">Save to List</h4>
             <form className={savestyle.saveForm}>
               Name
@@ -87,10 +87,8 @@ class Save extends React.Component {
     } else {
       return(
         <Modal {...this.props}>
-        <Modal.Body >
-          <div className={savestyle.exit}>
-            <img className={savestyle.exitImg} src='https://s3-us-west-1.amazonaws.com/sharebnbicons/close+icon.png' onClick={this.closeModal}></img>
-          </div>
+        <Modal.Body>
+          <div className={savestyle.exit}><img className={savestyle.exitImg} src='https://s3-us-west-1.amazonaws.com/sharebnbicons/close+icon.png' onClick={this.closeModal}></img></div>
           <h4 className="save-modalTitle">Save to List</h4>
             <div className={savestyle.createLinkContainer}>
               <a className={savestyle.createLink} onClick={this.clickCancel}>Create New List</a>
