@@ -75,9 +75,11 @@ export default class NavBar extends React.Component {
     //   console.log("hello reviews")
     // }
 
+    let pad = document.getElementById('mainFlexbox').getBoundingClientRect().left;
+
     return(
       <div className={navbarstyle.navBar} style={{transform: `${visible}`, transition: 'transform 300ms ease-in'}}>
-        <div className={navbarstyle.innerNavCont}>
+        <div className={navbarstyle.innerNavCont} style={{paddingLeft: `${pad}`}}>
           <div className={navbarstyle.navOptionsGroup}>
             <span id='navOverview' className={navbarstyle.navOptions}><a onClick={() => this.clickOverview()}>Overview</a></span>·
             <span id='navReviews' className={navbarstyle.navOptions}><a onClick={() => this.clickReviews()}>Reviews</a></span>·
