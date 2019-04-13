@@ -26,7 +26,7 @@ class Share extends React.Component {
       <Modal {...this.props}>
         <Modal.Body>
           <div className={sharestyle.exit}><img className={sharestyle.exitImg} src='https://s3-us-west-1.amazonaws.com/sharebnbicons/close+icon.png' onClick={this.props.onHide}></img></div>
-          <h3>Share</h3>
+          <h3 className={sharestyle.shareModalTitle} >Share</h3>
           <div className={sharestyle.shareDesc}>
             Check out this awesome listing on Airbnb: {this.props.property} - 
             Property for rent in {this.props.location}

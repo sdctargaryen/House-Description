@@ -67,6 +67,14 @@ export default class NavBar extends React.Component {
     let isShowing = Math.min(Math.floor(380 / this.state.currentScrollHeight), 1);
     var visible = !!isShowing ? 'translateY(-50px)' : 'translateY(0px)';
 
+    // var reviewPosition = document.getElementById('reviews').getBoundingClientRect();
+    // var hostPosition = document.getElementById('host').getBoundingClientRect();
+    // var hoodPosition = document.getElementById('neighborhood').getBoundingClientRect();
+    // var policyPosition = document.getElementById('policy').getBoundingClientRect();
+    // if (window.scrollY === reviewPosition){
+    //   console.log("hello reviews")
+    // }
+
     return(
       <div className={navbarstyle.navBar} style={{transform: `${visible}`, transition: 'transform 300ms ease-in'}}>
         <div className={navbarstyle.innerNavCont}>
@@ -77,7 +85,7 @@ export default class NavBar extends React.Component {
             <span id='navLocation' className={navbarstyle.navOptions}><a onClick={() => this.clickLocation()}>Location</a></span>·
             <span id='navPolicies' className={navbarstyle.navOptions}><a onClick={() => this.clickPolicies()}>Policies</a></span>
           </div>
-          <div className='rightBtns'>
+          <div className={navbarstyle.rightBtns}>
             <span className={navbarstyle.navOptions} onClick={() => this.setState({ showShare: true })}><img className={navbarstyle.icons} src='https://s3-us-west-1.amazonaws.com/sharebnbicons/share+icon.png'></img><a>Share</a></span>
             <Share
               show={this.state.showShare}

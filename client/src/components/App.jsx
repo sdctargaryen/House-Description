@@ -94,7 +94,7 @@ export default class App extends React.Component {
               </div>
               <div className={app.divider}></div>
               <div className='amenities'>
-                <div>Amenities</div>
+                <div className={app.sectionTitle}>Amenities</div>
                 <div className={app.amenIconContainer}>
                   <AmenitiesIcons amenitiesIcons={amenIcon} />
                   <Amenities
@@ -108,13 +108,13 @@ export default class App extends React.Component {
               </div>
               <div className={app.divider}></div>
               <div className='sleepingArrangements'>
-                <div>Sleeping arrangements</div>
+                <div className={app.sectionTitle}>Sleeping arrangements</div>
                 {/* <Sleeping beds={beds} /> */}
               </div>
               <div className={app.divider}></div>
               <div className='accessibility'>
-                <div>Accessibility</div>
-
+                <div className={app.sectionTitle}>Accessibility</div>
+                  <div className={app.accessText}>Step-free access to the home’s entrance</div>
               </div>
               <div className={app.divider}></div>
             </div>

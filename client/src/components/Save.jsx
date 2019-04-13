@@ -52,7 +52,7 @@ class Save extends React.Component {
         <Modal {...this.props}>
           <Modal.Body>
             <div className={savestyle.exit}><img className={savestyle.exitImg} src='https://s3-us-west-1.amazonaws.com/sharebnbicons/close+icon.png' onClick={this.closeModal}></img></div>
-            <h4 className="save-modalTitle">Save to List</h4>
+            <h4 className={savestyle.saveModalTitle}>Save to List</h4>
             <form className={savestyle.saveForm}>
               Name
               <input className={savestyle.saveInput} onChange={this.inputCheck} placeholder='Name your list'></input>

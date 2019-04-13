@@ -20,3 +20,11 @@ a:visited{color: #008489}
   font-weight: bold;
   color: #008489 !important
 }
+
+.sectionTitle{
+  font-weight: bold
+}
+
+.accessText{
+  margin-top: 20px
+}

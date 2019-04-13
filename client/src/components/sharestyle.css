@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
 .exit {
   cursor: pointer;
   border-radius: 100px;
@@ -16,9 +18,16 @@
   height: 30px
 }
 
+.shareModalTitle{
+  font-family:'Raleway', sans-serif !important;
+  font-size: 24px !important;
+  font-weight: bold
+}
+
 .shareDesc{
   padding-bottom: 30px;
   border-bottom: 1px solid #EBEBEB;
+  font-family:'Raleway', sans-serif !important;
 }
 
 .shareMethod{
@@ -27,6 +36,9 @@
   height: 90px;
   padding-top: 30px;
   border-bottom: 1px solid #EBEBEB;
+  font-family:'Raleway', sans-serif !important;
+  color: #008489;
+  text-align: center;
 }
 
 .iconDiv{
@@ -53,5 +65,4 @@
 .shareLink:hover{
   text-decoration: underline;
   cursor: pointer;
-  color: #008489;
 }

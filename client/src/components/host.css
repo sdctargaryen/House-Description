@@ -24,6 +24,7 @@
 .hostName{
   width: 80px;
   overflow-wrap: break-word;
+  text-align: center
 }
 
 .propertyName {
