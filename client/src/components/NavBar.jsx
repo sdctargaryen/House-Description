@@ -14,7 +14,6 @@ export default class NavBar extends React.Component {
       showEmbed: false,
       currentScrollHeight: 0
     }
-    this.randomGet = this.randomGet.bind(this)
     this.openEmbedModal = this.openEmbedModal.bind(this)
   }
 
