@@ -7,10 +7,23 @@
   font-family: 'Raleway', sans-serif;
 }
 
+.hostContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80px
+}
+
 .hostImg {
   height: 64px;
   width: 64px;
   border-radius: 100px;
+}
+
+.hostName{
+  width: 80px;
+  overflow-wrap: break-word;
 }
 
 .propertyName {
