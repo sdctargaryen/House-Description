@@ -76,7 +76,6 @@ export default class NavBar extends React.Component {
     // }
 
     let pad = document.getElementById('mainFlexbox').getBoundingClientRect().left;
-    console.log(pad);
 
     return(
       <div className={navbarstyle.navBar} style={{transform: `${visible}`, transition: 'transform 300ms ease-in'}}>
