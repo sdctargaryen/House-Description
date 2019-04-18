@@ -5,5 +5,8 @@ const controller = require('./controller.js');
 router
   .route('/desc')
   .get(controller.get)
-
+router
+  .route('/all')
+  .get(controller.getAll)
+  .delete(controller.deleteAll)
 module.exports = router
