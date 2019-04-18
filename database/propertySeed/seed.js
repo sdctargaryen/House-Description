@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Property = require('../index.js');
-
+var counter = 1;
 // --------------------------------------------
 const adjectives = ['soft', 'open', 'amazing', 'expensive', 'beautiful', 'elegant', 'narrow', 'wet', 'classy', 'spacious', 'lively', 'colorful', 'shiny', 'marvelous', 'nicest', 'comfortable', 'small', 'big', 'huge', 'great', 'impossible', 'possible', 'unremarkable', 'remarkable', 'the best', 'spectacular', 'outstanding', 'lovely', 'incomparable', 'pleasant', 'wonderful', 'incredible', 'marvelous', 'perfect'];
 const adverbs = ['lively', 'actively', 'happily', 'graciously', 'generously', 'genuinely', 'poorly', 'intensely', 'depressingly', 'properly', 'insanely', 'terribly', 'widely', 'wisely', 'stupidly', 'improperly', 'correctly', 'fairly', 'comfortably', 'dryly', 'inconspicuously', 'humorously', 'proactively', 'gracefully'];
@@ -105,13 +105,13 @@ let bedIcons = [
 randomElement([2, 3, 4]);
 
 //Amenities Functions: {basic: Array, notIncluded: Array, iconUrl: Array},
-const amenities = ['Pool', 'Kitchen', 'Wireless Internet', 'Pet-Friendly', 'Free Parking', 'TV', 'Essentials', 'Heating', 'Elevator', 'Gym', 'Washer', 'Dryer'];
+const amenity = ['Pool', 'Kitchen', 'Wireless Internet', 'Pet-Friendly', 'Free Parking', 'TV', 'Essentials', 'Heating', 'Elevator', 'Gym', 'Washer', 'Dryer'];
 // Number of Amenities
 let numAmenities = randomElement([6, 7, 8]);
-xRandomElements(amenities, numAmenities);
+xRandomElements(amenity, numAmenities);
 // Number of Not Includeded
 let numNotIncluded = randomElement([2, 3, 4, 5]);
-xRandomElements(amenities, numNotIncluded);
+xRandomElements(amenity, numNotIncluded);
 // UrlIcons
 let amenIcons = [
   {Elevator: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-elevator.png'},
@@ -179,8 +179,8 @@ generateProperty = () => {
       iconUrl: xRandomElements(bedIcons, this.quantity) // iconUrl
     },
     amenities: {
-      basic: xRandomElements(amenities, numAmenities),
-      notIncluded: xRandomElements(amenities, numNotIncluded),
+      basic: xRandomElements(amenity, numAmenities),
+      notIncluded: xRandomElements(amenity, numNotIncluded),
       iconUrl: xRandomElements(amenIcons, randomElement([2, 3, 4])) // iconUrl
     },
     numBaths: ((Math.floor(Math.random() * 4)) + 1),
@@ -190,34 +190,36 @@ generateProperty = () => {
     },
     summary: makeDescription()
   };
-  // while (value > 0){
-  //   result.push(propObj);
-  //   value--
-  // }
-  // console.log(result)
-  // return result
-  return propObj
+  const {propertyInfo, beds, amenities, numBaths, host, summary} = propObj;
+  var property = new Property({propertyInfo, beds, amenities, numBaths, host, summary});
+  property.save()
+    .then(() => {
+      console.log("created ", counter);
+      counter++;
+    })
+    .catch(err => console.error(err));
+  
 };
 // generateProperty(2)
 // --------------------------------------------------
 
 for (var i = 0; i <= 100; i++){
-  result.push(generateProperty())
+  generateProperty();
 }
 
-var insertAllProperties = function() {
-  // create will take either an object or an array of objects
-  // Property.create(generateProperty(100))
-  Property.create(result)
-    .then(() => {
-      console.log('database seeded');
-      mongoose.connection.close();
-    })
-    .catch(error => console.error(error));
-};
+// var insertAllProperties = function() {
+//   // create will take either an object or an array of objects
+//   // Property.create(generateProperty(100))
+//   Property.create(result)
+//     .then(() => {
+//       console.log('database seeded');
+//       mongoose.connection.close();
+//     })
+//     .catch(error => console.error(error));
+// };
 
 // NOTE: DO NOT invoke this function as part of your
 // server code - it is meant to only be run once so that
 // you have access to data to work with
 
-insertAllProperties();
+// insertAllProperties();
