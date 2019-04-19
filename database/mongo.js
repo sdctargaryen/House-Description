@@ -9,3 +9,4 @@ mongoose.connect('mongodb://localhost/airbnbDesc', { useNewUrlParser: true })
 var Property = mongoose.model('Property', propertySchema);
 
 module.exports = Property;
+

@@ -1,5 +1,29 @@
-const mongoose = require('mongoose');
 const Property = require('../mongo.js');
+const MongoClient = require('mongodb').MongoClient;
+const mongoOptions = {useNewUrlParser:true};
+
+const url = 'mongodb://localhost:27017';
+const dbName = 'airbnbDesc';
+
+MongoClient.connect(url, mongoOptions, (err, client) => {
+  if (err) {
+    console.log (err);
+  } else {
+    console.log ("connected to mongoDB");
+    var db = client.db(dbName);
+    var collection = db.collection("properties");
+    for (let i = 0; i < 1500; i++) {
+      generateProperty(collection);
+    }
+    for (let i = 0; i < 2000; i++) {
+      generateProperty(collection);
+    }
+    for (let i = 0; i < 1500; i++) {
+      generateProperty(collection);
+    }
+  }
+});
+
 let counter = 1;
 let startTime = new Date();
 const adjectives = ['soft', 'open', 'amazing', 'expensive', 'beautiful', 'elegant', 'narrow', 'wet', 'classy', 'spacious', 'lively', 'colorful', 'shiny', 'marvelous', 'nicest', 'comfortable', 'small', 'big', 'huge', 'great', 'impossible', 'possible', 'unremarkable', 'remarkable', 'the best', 'spectacular', 'outstanding', 'lovely', 'incomparable', 'pleasant', 'wonderful', 'incredible', 'marvelous', 'perfect'];
@@ -115,7 +139,7 @@ let hostImgs = [
 ];
 //////////// TODO ///////////////
 
-generateProperty = () => {
+generateProperty = (collection) => {
   let propObj = {
     propertyInfo: {
       propType: randomElement(propTypes), 
@@ -136,21 +160,24 @@ generateProperty = () => {
       name: randomElement(names), 
       pictureUrl: randomElement(hostImgs) // randomElement(hostUrls)
     },
-    summary: makeDescription()
+    summary: makeDescription(),
+    __v: 0
   };
   
-  let property = new Property(propObj);
-  property.save()
+  // let property = new Property(propObj);
+  // property.save()
+  // let {propertyInfo, beds, amenities, numBaths, host, summary} = propObj;
+  collection.insertOne(propObj)
     .then(() => {
       endTime = new Date();
       var timeDiff = (endTime - startTime)/1000;
-      if(counter %2000 ===0 || counter===1){
-      console.log("created ", counter, "; time created ", timeDiff);}
+      if(counter % 500 === 0 || counter===1){
+      console.log("created ", counter, "; time elapsed ", timeDiff);}
       counter++;
     })
     .catch(err => console.error(err));
 };
 
-for (let i = 0; i < 2000; i++) {
-  generateProperty();
-}
+// for (let i = 0; i < 1000; i++) {
+//   generateProperty();
+// } 
