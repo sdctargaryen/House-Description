@@ -1,17 +1,14 @@
 const mongoose = require('mongoose');
-const Property = require('../index.js');
-var counter = 1;
-// --------------------------------------------
+const Property = require('../mongo.js');
+let counter = 1;
+let startTime = new Date();
 const adjectives = ['soft', 'open', 'amazing', 'expensive', 'beautiful', 'elegant', 'narrow', 'wet', 'classy', 'spacious', 'lively', 'colorful', 'shiny', 'marvelous', 'nicest', 'comfortable', 'small', 'big', 'huge', 'great', 'impossible', 'possible', 'unremarkable', 'remarkable', 'the best', 'spectacular', 'outstanding', 'lovely', 'incomparable', 'pleasant', 'wonderful', 'incredible', 'marvelous', 'perfect'];
 const adverbs = ['lively', 'actively', 'happily', 'graciously', 'generously', 'genuinely', 'poorly', 'intensely', 'depressingly', 'properly', 'insanely', 'terribly', 'widely', 'wisely', 'stupidly', 'improperly', 'correctly', 'fairly', 'comfortably', 'dryly', 'inconspicuously', 'humorously', 'proactively', 'gracefully'];
 const prepositions = ['to', 'in', 'on', 'over', 'above', 'below', 'under', 'at', 'from', 'into', 'onto', 'on top of', 'of'];
 const verbs = ['downloaded', 'interfaced', 'deployed', 'developed', 'built', 'invented', 'experienced', 'navigated', 'aided', 'enjoyed', 'engineered', 'installed', 'debugged', 'delegated', 'automated', 'formulated', 'systematized', 'overhauled', 'computed', 'enjoy','run', 'eat', 'walk', 'fly', 'talk', 'sing', 'dance', 'wallow', 'pace', 'sweat', 'draw', 'drink', 'teach', 'fall', 'joke', 'take', 'treat', 'peer', 'hear', 'listen', 'guess', 'cheer', 'whine', 'bark', 'sprint', 'write', 'help', 'swim', 'follow', 'make', 'break', 'fake', 'choke', 'beat', 'sit', 'lie', 'lay', 'watch'];
 const area = ['entrance', 'doorway', 'bedroom', 'bathroom', 'study', 'living room', 'basement', 'attic', 'closet', 'library', 'porch', 'yard', 'roof', 'kitchen', 'dining room', 'garage', 'backdoor', 'sidedoor'];
 
-let randomElement = function(array){
-  let randomIndex = Math.floor(Math.random() * array.length);
-  return array[randomIndex];
-};
+let randomElement = array => array[Math.floor(Math.random() * array.length)];
 
 const sentences = [
   `Our ${randomElement(adjectives)} ${randomElement(adjectives)} ${randomElement(area)} with ${randomElement(adjectives)} ${randomElement(area)} is ${randomElement(adjectives)} as heck and just ${randomElement(prepositions)} the hill from the LA's ${randomElement(adjectives)}-running farmer's market! You can ${randomElement(verbs)} the ${randomElement(adjectives)} sights of the city then get comfy in your ${randomElement(adjectives)} ${randomElement(area)} with ${randomElement(adjectives)} bath.`,
@@ -31,26 +28,25 @@ const sentences = [
   `Other Amenities include a ${randomElement(adjectives)} foam mattress, 1500 thread count white linens, 15 MB high speed WIFI, 50" Samsung LED with 250 channels of programming, Iphone music dock, ${randomElement(adjectives)} floors, ${randomElement(adverbs)} stocked ${randomElement(area)} with cookware and dining set for easy meal preparation and entertaining. There is also ample walk in ${randomElement(area)} space which includes a walk in closet, central air/heat, ${randomElement(adjectives)} ${randomElement(area)}. in-${randomElement(area)} laundry and controlled secure building ${randomElement(area)}.`
 ];
 
-var makeParagraph = () => {
+let makeParagraph = () => {
   let result = [];
-  let randomIndex = Math.floor(Math.random() * 3) + 1;
+  let randomIndex = Math.ceil(Math.random() * 3);
   while (randomIndex > 0){
     result.push(randomElement(sentences));
-    randomIndex--
+    randomIndex--;
   };
   return result.join(" ");
 };
 
-var makeDescription = () => {
+let makeDescription = () => {
   let result = [];
-  let randomIndex = Math.floor(Math.random() * 5) + 1;
+  let randomIndex = Math.ceil(Math.random() * 5);
   while(randomIndex > 0){
     result.push(makeParagraph())
-    randomIndex--
+    randomIndex--;
   };
-  return result
+  return result;
 };
-//-----------------------------------------------
 
 const propTypes = ['Room in boutique hotel', 'Private room in hostel', 'Room in hotel', 'Shared room in apartment', 'Shared room in villa', 'Shared room in house', 'Entire house', 'Entire townhouse', 'Entire guest suite', 'Entire apartment'];
 const locations = ['Los Angeles', 'Glendale', 'Marina del Rey', 'Hollywood', 'Hawthorne', 'Pasadena', 'Inglewood', 'Compton', 'Koreatown', 'Westchester', "Bel-Air", "Beverley Hills", "West LA", 'Santa Monica', 'Venice', 'Malibu'];
@@ -59,60 +55,29 @@ const adjective = ['', "Beautiful", 'Cozy', 'Convenient', 'Magical', 'Private', 
 
 const titles = [`${randomElement(adjective)} ${randomElement(noun)}`, `${randomElement(adjective)} and ${randomElement(adjective)} ${randomElement(noun)}`, `${randomElement(adjective)} ${randomElement(noun)} around ${randomElement(locations)} area`, `${randomElement(adjective)} ${randomElement(propTypes)}`];
   
-const bedTypes = ['single', 'double', 'queen', 'king', 'sofa', 'sofa bed', 'hammock', 'air mattress', 'bunk bed', 'water bed', 'floor mattress', 'crib', 'toddler bed'];
+// const bedTypes = ['single', 'double', 'queen', 'king', 'sofa', 'sofa bed', 'hammock', 'air mattress', 'bunk bed', 'water bed', 'floor mattress', 'crib', 'toddler bed'];
 
-// let randomElement = function(array){
-//   let randomIndex = Math.floor(Math.random() * array.length);
-//   return array[randomIndex];
-// };
-
-let xRandomElements = function(array, value){
+let xRandomElements = (array, value) => {
   let result = [];
   while (value > 0){
     result.push(randomElement(array));
-    value--
+    value--;
   }
-  return result
+  return result;
 }
 
-// Property Functions: {propType: String, title: String, location: String, numGuests: Number},
-// Property Types
-var propType = randomElement(propTypes);
-// Property Title
-var propName = randomElement(titles);
-// Property Locations
-var propLoc = randomElement(locations);
-// Number of Guests
-var guestNum = randomElement([2, 3, 4, 5, 6, 7, 8, 9, 10])
 
-//Bed Functions: {quantity:Number, bedType: String, iconUrl: Array},
-// Number of Beds
-let numBeds = randomElement([1, 2, 3, 4, 5, 6]);
-// Bed Types
-let bedTypesArr = xRandomElements(bedTypes, numBeds);
-// UrlIcons
-let bedIcons = [
-  {floor: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-floor.png'},
-  {queen: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-queenking.png'},
-  {king: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-queenking.png'},
-  {single: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-single.png'},
-  {sofa: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-sofa.png'}
-];
-//////////// TODO ///////////////
-// let bedIconUrl = xRandomElements(bedUrls, numBeds) 
+// let bedIcons = [
+//   {floor: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-floor.png'},
+//   {queen: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-queenking.png'},
+//   {king: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-queenking.png'},
+//   {single: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-single.png'},
+//   {sofa: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-sofa.png'}
+// ];
 
-// numBaths: Number,
-randomElement([2, 3, 4]);
-
-//Amenities Functions: {basic: Array, notIncluded: Array, iconUrl: Array},
 const amenity = ['Pool', 'Kitchen', 'Wireless Internet', 'Pet-Friendly', 'Free Parking', 'TV', 'Essentials', 'Heating', 'Elevator', 'Gym', 'Washer', 'Dryer'];
-// Number of Amenities
 let numAmenities = randomElement([6, 7, 8]);
-xRandomElements(amenity, numAmenities);
-// Number of Not Includeded
 let numNotIncluded = randomElement([2, 3, 4, 5]);
-xRandomElements(amenity, numNotIncluded);
-// UrlIcons
 let amenIcons = [
   {Elevator: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-elevator.png'},
   {Gym: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-gym.png'},
@@ -124,18 +89,11 @@ let amenIcons = [
   {Wifi: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-wifi.png'}
 ];
 //////////// TODO ///////////////
-// let amIconUrl = xRandomElements(bedUrls, randomElement([6, 7, 8])) 
 
-
-// Number of Bathrooms
-let randomBath = Math.floor(Math.random() * 4) + 1;
-
-//Host Functions: { name: String, pictureUrl: String },
 const firstNames = ['Mark', 'Jaime', 'Arya', 'Cersei', 'Tyrion', 'Michael', 'Sansa', 'Cassie', 'Sarah', 'Jackie', 'John', 'Fred', 'Jacob', 'Daniel', 'Jason', 'Anthony'];
 const lastNames = ['', 'Johnson', 'Lee', 'Smith', 'Snow', 'Matthews', 'Rodriquez', 'Chan', 'Schmidt', 'Lannister', 'Tyrell', 'Stark', 'Bolton'];
 const names = [`${randomElement(firstNames)}`, `${randomElement(firstNames)} ${randomElement(lastNames)}`, `${randomElement(firstNames)} and ${randomElement(firstNames)}`];
 randomElement(names);
-// UrlIcons
 let hostImgs = [
   'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-adam.png',
   'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-anthony.png',
@@ -156,17 +114,9 @@ let hostImgs = [
   'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-yongsoo.png'
 ];
 //////////// TODO ///////////////
-// randomElement(hostUrls)
 
-// summary: Array
-
-var result = [];
-
-// generateProperty = (value) => {
 generateProperty = () => {
-  // var value = value || 1;
-  // var result = [];
-  var propObj = {
+  let propObj = {
     propertyInfo: {
       propType: randomElement(propTypes), 
       title: randomElement(titles), 
@@ -174,52 +124,33 @@ generateProperty = () => {
       numGuests: randomElement([2, 3, 4, 5, 6, 7, 8])
     },
     beds: {
-      quantity: randomElement([1, 2, 3, 4, 5, 6]), 
-      bedType: xRandomElements(bedTypes, this.quantity), 
-      iconUrl: xRandomElements(bedIcons, this.quantity) // iconUrl
+      quantity: randomElement([1, 2, 3, 4, 5, 6])
     },
     amenities: {
       basic: xRandomElements(amenity, numAmenities),
       notIncluded: xRandomElements(amenity, numNotIncluded),
       iconUrl: xRandomElements(amenIcons, randomElement([2, 3, 4])) // iconUrl
     },
-    numBaths: ((Math.floor(Math.random() * 4)) + 1),
+    numBaths: Math.ceil(Math.random() * 4),
     host: {
       name: randomElement(names), 
       pictureUrl: randomElement(hostImgs) // randomElement(hostUrls)
     },
     summary: makeDescription()
   };
-  const {propertyInfo, beds, amenities, numBaths, host, summary} = propObj;
-  var property = new Property({propertyInfo, beds, amenities, numBaths, host, summary});
+  
+  let property = new Property(propObj);
   property.save()
     .then(() => {
-      console.log("created ", counter);
+      endTime = new Date();
+      var timeDiff = (endTime - startTime)/1000;
+      if(counter %2000 ===0 || counter===1){
+      console.log("created ", counter, "; time created ", timeDiff);}
       counter++;
     })
     .catch(err => console.error(err));
-  
 };
-// generateProperty(2)
-// --------------------------------------------------
 
-for (var i = 0; i <= 100; i++){
+for (let i = 0; i < 2000; i++) {
   generateProperty();
 }
-
-// var insertAllProperties = function() {
-//   // create will take either an object or an array of objects
-//   // Property.create(generateProperty(100))
-//   Property.create(result)
-//     .then(() => {
-//       console.log('database seeded');
-//       mongoose.connection.close();
-//     })
-//     .catch(error => console.error(error));
-// };
-
-// NOTE: DO NOT invoke this function as part of your
-// server code - it is meant to only be run once so that
-// you have access to data to work with
-
-// insertAllProperties();

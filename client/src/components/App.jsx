@@ -38,6 +38,7 @@ export default class App extends React.Component {
 
   getProperty() {
     axios
+      // .get('/api/sqldesc')
       .get('/api/desc')
       .then((data) => {
         this.setState({
