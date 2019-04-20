@@ -26,13 +26,13 @@ const controller = {
       .catch(err => console.error(err))
   },
   sqlget: (req, res) => {
-    var random = 55000 + Math.floor(Math.random() * 100);
+    var random = Math.floor(Math.random() * 10);
     HouseDescriptions.findAll({where:{id:random}})
       .then(data => res.status(200).send(data))
       .catch(err => console.error(err))
   },
   sqlgetAll: (req, res) => {
-    HouseDescriptions.findAll()
+    HouseDescriptions.findAll({limit:100})
       .then(data => res.status(202).send(data))
       .catch(err => console.log('error from delete ', err));
   },

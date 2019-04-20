@@ -1,21 +1,4 @@
-const MongoClient = require('mongodb').MongoClient;
-const mongoOptions = {useNewUrlParser:true};
-
-const url = 'mongodb://localhost:27017';
-const dbName = 'airbnbDesc';
-
-MongoClient.connect(url, mongoOptions, (err, client) => {
-  if (err) {
-    console.log (err);
-  } else {
-    console.log ("connected to mongoDB");
-    var db = client.db(dbName);
-    var collection = db.collection("properties");
-    for (let i = 0; i < 1500; i++) {
-      generateProperty(collection);
-    }
-  }
-});
+const Property = require('../mongo.js');
 
 let counter = 1;
 let startTime = new Date();
@@ -47,7 +30,7 @@ const sentences = [
 
 let makeParagraph = () => {
   let result = [];
-  let randomIndex = Math.ceil(Math.random() * 2);
+  let randomIndex = Math.ceil(Math.random() * 3);
   while (randomIndex > 0){
     result.push(randomElement(sentences));
     randomIndex--;
@@ -57,7 +40,7 @@ let makeParagraph = () => {
 
 let makeDescription = () => {
   let result = [];
-  let randomIndex = Math.ceil(Math.random() * 2);
+  let randomIndex = Math.ceil(Math.random() * 5);
   while(randomIndex > 0){
     result.push(makeParagraph())
     randomIndex--;
@@ -157,13 +140,18 @@ generateProperty = (collection) => {
     __v: 0
   };
   
-  collection.insertOne(propObj)
+  let property = new Property(propObj);
+  property.save()
     .then(() => {
       endTime = new Date();
-      var timeDiff = (endTime - startTime) / 1000;
-      if (counter % 500 === 0 || counter === 1) {
+      var timeDiff = (endTime - startTime)/1000;
+      if(counter % 500 === 0 || counter === 1){
       console.log("created ", counter, "; time elapsed ", timeDiff);}
       counter++;
     })
     .catch(err => console.error(err));
 };
+
+for (let i = 0; i < 1000; i++) {
+  generateProperty();
+} 

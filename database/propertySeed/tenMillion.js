@@ -1,32 +1,18 @@
-const MongoClient = require('mongodb').MongoClient;
-const mongoOptions = {useNewUrlParser:true};
+const fs = require('fs');
 
-const url = 'mongodb://localhost:27017';
-const dbName = 'airbnbDesc';
+const file = fs.createWriteStream('./seed.json');
 
-MongoClient.connect(url, mongoOptions, (err, client) => {
-  if (err) {
-    console.log (err);
-  } else {
-    console.log ("connected to mongoDB");
-    var db = client.db(dbName);
-    var collection = db.collection("properties");
-    for (let i = 0; i < 1500; i++) {
-      generateProperty(collection);
-    }
-  }
-});
 
-let counter = 1;
-let startTime = new Date();
 const adjectives = ['soft', 'open', 'amazing', 'expensive', 'beautiful', 'elegant', 'narrow', 'wet', 'classy', 'spacious', 'lively', 'colorful', 'shiny', 'marvelous', 'nicest', 'comfortable', 'small', 'big', 'huge', 'great', 'impossible', 'possible', 'unremarkable', 'remarkable', 'the best', 'spectacular', 'outstanding', 'lovely', 'incomparable', 'pleasant', 'wonderful', 'incredible', 'marvelous', 'perfect'];
 const adverbs = ['lively', 'actively', 'happily', 'graciously', 'generously', 'genuinely', 'poorly', 'intensely', 'depressingly', 'properly', 'insanely', 'terribly', 'widely', 'wisely', 'stupidly', 'improperly', 'correctly', 'fairly', 'comfortably', 'dryly', 'inconspicuously', 'humorously', 'proactively', 'gracefully'];
 const prepositions = ['to', 'in', 'on', 'over', 'above', 'below', 'under', 'at', 'from', 'into', 'onto', 'on top of', 'of'];
-const verbs = ['downloaded', 'interfaced', 'deployed', 'developed', 'built', 'invented', 'experienced', 'navigated', 'aided', 'enjoyed', 'engineered', 'installed', 'debugged', 'delegated', 'automated', 'formulated', 'systematized', 'overhauled', 'computed', 'enjoy','run', 'eat', 'walk', 'fly', 'talk', 'sing', 'dance', 'wallow', 'pace', 'sweat', 'draw', 'drink', 'teach', 'fall', 'joke', 'take', 'treat', 'peer', 'hear', 'listen', 'guess', 'cheer', 'whine', 'bark', 'sprint', 'write', 'help', 'swim', 'follow', 'make', 'break', 'fake', 'choke', 'beat', 'sit', 'lie', 'lay', 'watch'];
+const verbs = ['downloaded', 'interfaced', 'deployed', 'developed', 'built', 'invented', 'experienced', 'navigated', 'aided', 'enjoyed', 'engineered', 'installed', 'debugged', 'delegated', 'automated', 'formulated', 'systematized', 'overhauled', 'computed', 'enjoy', 'run', 'eat', 'walk', 'fly', 'talk', 'sing', 'dance', 'wallow', 'pace', 'sweat', 'draw', 'drink', 'teach', 'fall', 'joke', 'take', 'treat', 'peer', 'hear', 'listen', 'guess', 'cheer', 'whine', 'bark', 'sprint', 'write', 'help', 'swim', 'follow', 'make', 'break', 'fake', 'choke', 'beat', 'sit', 'lie', 'lay', 'watch'];
 const area = ['entrance', 'doorway', 'bedroom', 'bathroom', 'study', 'living room', 'basement', 'attic', 'closet', 'library', 'porch', 'yard', 'roof', 'kitchen', 'dining room', 'garage', 'backdoor', 'sidedoor'];
 
-let randomElement = array => array[Math.floor(Math.random() * array.length)];
-
+let randomElement = (array) => {
+  let randomIndex = Math.floor(Math.random() * array.length);
+  return array[randomIndex];
+};
 const sentences = [
   `Our ${randomElement(adjectives)} ${randomElement(adjectives)} ${randomElement(area)} with ${randomElement(adjectives)} ${randomElement(area)} is ${randomElement(adjectives)} as heck and just ${randomElement(prepositions)} the hill from the LA's ${randomElement(adjectives)}-running farmer's market! You can ${randomElement(verbs)} the ${randomElement(adjectives)} sights of the city then get comfy in your ${randomElement(adjectives)} ${randomElement(area)} with ${randomElement(adjectives)} bath.`,
   `If you're ${randomElement(verbs)} ${randomElement(prepositions)} a car, it's a ${randomElement(adjectives)} street where ${randomElement(adjectives)} street parking can ${randomElement(adverbs)} be found. Freeway access is just ${randomElement(prepositions)} the corner. Lyft/Uber have ${randomElement(adjectives)} drivers nearby.`,
@@ -44,39 +30,34 @@ const sentences = [
   `Extremely ${randomElement(adjectives)} and ${randomElement(adjectives)} for you. We want you to ${randomElement(verbs)} ${randomElement(adjectives)} while watching the sunset over the mountains and ${randomElement(adjectives)} views of the hills with a ${randomElement(adjectives)} breeze coming ${randomElement(prepositions)} the ${randomElement(adjectives)} french doors while ${randomElement(verbs)}ing on the Harrison sofa ${randomElement(verbs)}ing to your fav playlist on the Iphone dock.`,
   `Other Amenities include a ${randomElement(adjectives)} foam mattress, 1500 thread count white linens, 15 MB high speed WIFI, 50" Samsung LED with 250 channels of programming, Iphone music dock, ${randomElement(adjectives)} floors, ${randomElement(adverbs)} stocked ${randomElement(area)} with cookware and dining set for easy meal preparation and entertaining. There is also ample walk in ${randomElement(area)} space which includes a walk in closet, central air/heat, ${randomElement(adjectives)} ${randomElement(area)}. in-${randomElement(area)} laundry and controlled secure building ${randomElement(area)}.`
 ];
-
-let makeParagraph = () => {
+var makeParagraph = () => {
   let result = [];
   let randomIndex = Math.ceil(Math.random() * 2);
-  while (randomIndex > 0){
+  while (randomIndex > 0) {
     result.push(randomElement(sentences));
     randomIndex--;
   };
   return result.join(" ");
 };
-
-let makeDescription = () => {
+var makeDescription = () => {
   let result = [];
   let randomIndex = Math.ceil(Math.random() * 2);
-  while(randomIndex > 0){
+  while (randomIndex > 0) {
     result.push(makeParagraph())
     randomIndex--;
   };
   return result;
 };
-
 const propTypes = ['Room in boutique hotel', 'Private room in hostel', 'Room in hotel', 'Shared room in apartment', 'Shared room in villa', 'Shared room in house', 'Entire house', 'Entire townhouse', 'Entire guest suite', 'Entire apartment'];
 const locations = ['Los Angeles', 'Glendale', 'Marina del Rey', 'Hollywood', 'Hawthorne', 'Pasadena', 'Inglewood', 'Compton', 'Koreatown', 'Westchester', "Bel-Air", "Beverley Hills", "West LA", 'Santa Monica', 'Venice', 'Malibu'];
 const noun = ['Home', 'Flat', 'Apartment', 'Suite', 'Loft', 'Cottage', 'Townhouse', 'Condo', 'Bungalow', 'Retreat', 'House', 'Castle', 'Mansion'];
 const adjective = ['', "Beautiful", 'Cozy', 'Convenient', 'Magical', 'Private', 'Vintage', 'Charming', 'Themed', 'Modern', 'Luxurious', 'Getaway', 'Quaint', 'Hilltop', 'Scenic', 'Picturesque', 'Comfy'];
 
 const titles = [`${randomElement(adjective)} ${randomElement(noun)}`, `${randomElement(adjective)} and ${randomElement(adjective)} ${randomElement(noun)}`, `${randomElement(adjective)} ${randomElement(noun)} around ${randomElement(locations)} area`, `${randomElement(adjective)} ${randomElement(propTypes)}`];
-  
-// const bedTypes = ['single', 'double', 'queen', 'king', 'sofa', 'sofa bed', 'hammock', 'air mattress', 'bunk bed', 'water bed', 'floor mattress', 'crib', 'toddler bed'];
 
 let xRandomElements = (array, value) => {
   let result = [];
-  while (value > 0){
+  while (value > 0) {
     result.push(randomElement(array));
     value--;
   }
@@ -84,28 +65,19 @@ let xRandomElements = (array, value) => {
 }
 
 
-// let bedIcons = [
-//   {floor: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-floor.png'},
-//   {queen: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-queenking.png'},
-//   {king: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-queenking.png'},
-//   {single: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-single.png'},
-//   {sofa: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-sofa.png'}
-// ];
-
 const amenity = ['Pool', 'Kitchen', 'Wireless Internet', 'Pet-Friendly', 'Free Parking', 'TV', 'Essentials', 'Heating', 'Elevator', 'Gym', 'Washer', 'Dryer'];
 let numAmenities = randomElement([6, 7, 8]);
 let numNotIncluded = randomElement([2, 3, 4, 5]);
 let amenIcons = [
-  {Elevator: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-elevator.png'},
-  {Gym: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-gym.png'},
-  {Kitchen: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-kitchen.png'},
-  {Parking: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-parking.png'},
-  {TV: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-tv.png'},
-  {Washer: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-washdry.png'},
-  {Dryer: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-washdry.png'},
-  {Wifi: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-wifi.png'}
+  { Elevator: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-elevator.png' },
+  { Gym: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-gym.png' },
+  { Kitchen: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-kitchen.png' },
+  { Parking: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-parking.png' },
+  { TV: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-tv.png' },
+  { Washer: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-washdry.png' },
+  { Dryer: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-washdry.png' },
+  { Wifi: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-wifi.png' }
 ];
-//////////// TODO ///////////////
 
 const firstNames = ['Mark', 'Jaime', 'Arya', 'Cersei', 'Tyrion', 'Michael', 'Sansa', 'Cassie', 'Sarah', 'Jackie', 'John', 'Fred', 'Jacob', 'Daniel', 'Jason', 'Anthony'];
 const lastNames = ['', 'Johnson', 'Lee', 'Smith', 'Snow', 'Matthews', 'Rodriquez', 'Chan', 'Schmidt', 'Lannister', 'Tyrell', 'Stark', 'Bolton'];
@@ -132,11 +104,12 @@ let hostImgs = [
 ];
 //////////// TODO ///////////////
 
-generateProperty = (collection) => {
-  let propObj = {
+generateProperty = (i) => {
+  return {
+    id: i,
     propertyInfo: {
-      propType: randomElement(propTypes), 
-      title: randomElement(titles), 
+      propType: randomElement(propTypes),
+      title: randomElement(titles),
       location: randomElement(locations),
       numGuests: randomElement([2, 3, 4, 5, 6, 7, 8])
     },
@@ -150,20 +123,47 @@ generateProperty = (collection) => {
     },
     numBaths: Math.ceil(Math.random() * 4),
     host: {
-      name: randomElement(names), 
+      name: randomElement(names),
       pictureUrl: randomElement(hostImgs) // randomElement(hostUrls)
     },
     summary: makeDescription(),
     __v: 0
   };
-  
-  collection.insertOne(propObj)
-    .then(() => {
-      endTime = new Date();
-      var timeDiff = (endTime - startTime) / 1000;
-      if (counter % 500 === 0 || counter === 1) {
-      console.log("created ", counter, "; time elapsed ", timeDiff);}
-      counter++;
-    })
-    .catch(err => console.error(err));
 };
+
+let startTime = new Date();
+var endTime;
+
+function writeTenMillionTimes() {
+  let i = 1e7;
+
+  write();
+
+  function write() {
+    let ok = true;
+
+    while (i > 0 && ok) {
+      i--;
+      endTime = new Date();
+      let timeDiff = (endTime - startTime) / 1000;
+      if (i % 10000 === 0) console.log(`${(1e7 - i) / 1000000}M of obj created at ${timeDiff} sec`);
+
+      // if (i===1e7-1) {
+      //   file.write("[" + JSON.stringify(generateProperty(i))+ ",");
+      // }
+      if (i === 0) {
+        // file.write(JSON.stringify(generateProperty(i)) + "]");
+        file.write(JSON.stringify(generateProperty(i)));
+      } else {
+        ok = file.write(JSON.stringify(generateProperty(i)));
+      }
+    }
+
+    if (i > 0) {
+      file.once('drain', write);
+    }
+  }
+}
+
+writeTenMillionTimes();
+

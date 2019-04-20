@@ -25,3 +25,9 @@ build/
 bundle.js
 
 package-lock.json
+
+sample.csv
+sample.json
+seed.json
+seed.csv
+mysql.json

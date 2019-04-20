@@ -7,7 +7,9 @@
     "start": "nodemon server/index.js",
     "build": "webpack -w",
     "mongoseed": "node database/propertySeed/mongo_seed.js",
-    "mysqlseed": "node database/propertySeed/mysql_seed.js"
+    "mysqlseed": "node database/propertySeed/mysql_seed.js",
+    "tenmil": "node database/propertySeed/tenMillion.js",
+    "tenmilcsv": "node database/propertySeed/tenMillionCSV.js"
   },
   "repository": {
     "type": "git",
@@ -34,6 +36,7 @@
     "bootstrap": "^4.3.1",
     "css-loader": "^2.1.1",
     "express": "^4.16.4",
+    "fs": "0.0.1-security",
     "mongodb": "^3.2.3",
     "mongoose": "^5.4.20",
     "morgan": "^1.9.1",

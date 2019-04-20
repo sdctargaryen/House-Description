@@ -2,7 +2,10 @@ const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize('sharebnb', 'root', '', {
   host: 'localhost',
-  dialect: 'mysql'
+  dialect: 'mysql',
+  define: {
+    timestamps: false
+  }
 });
 
 sequelize
