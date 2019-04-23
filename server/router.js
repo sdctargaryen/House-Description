@@ -5,10 +5,14 @@ const controller = require('./controller.js');
 router
   .route('/desc')
   .get(controller.get)
+  .post(controller.post)
+router
+  .route('/desc/:id')
+  .delete(controller.del)
 router
   .route('/all')
   .get(controller.getAll)
-  .delete(controller.deleteAll)
+  .delete(controller.delAll)
 router
   .route('/sqldesc')
   .get(controller.sqlget)

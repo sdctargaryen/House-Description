@@ -58,4 +58,4 @@ sequelize.sync({force: false})
 .then(()=>console.log('synced with mysql database'))
 .catch(error => console.log(error));
 
-module.exports = HouseDescriptions;
+module.exports = {sequelize, HouseDescriptions};

@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const file = fs.createWriteStream('./seed.json');
+const file = fs.createWriteStream('./try.json');
 
 
 const adjectives = ['soft', 'open', 'amazing', 'expensive', 'beautiful', 'elegant', 'narrow', 'wet', 'classy', 'spacious', 'lively', 'colorful', 'shiny', 'marvelous', 'nicest', 'comfortable', 'small', 'big', 'huge', 'great', 'impossible', 'possible', 'unremarkable', 'remarkable', 'the best', 'spectacular', 'outstanding', 'lovely', 'incomparable', 'pleasant', 'wonderful', 'incredible', 'marvelous', 'perfect'];
@@ -135,7 +135,7 @@ let startTime = new Date();
 var endTime;
 
 function writeTenMillionTimes() {
-  let i = 1e7;
+  let i = 1e2;
 
   write();
 
@@ -146,16 +146,17 @@ function writeTenMillionTimes() {
       i--;
       endTime = new Date();
       let timeDiff = (endTime - startTime) / 1000;
-      if (i % 10000 === 0) console.log(`${(1e7 - i) / 1000000}M of obj created at ${timeDiff} sec`);
+      if (i % 10000 === 0) console.log(`${(1e2 - i) / 1000000}M of obj created at ${timeDiff} sec`);
 
-      // if (i===1e7-1) {
-      //   file.write("[" + JSON.stringify(generateProperty(i))+ ",");
-      // }
+      if (i===1e2-1) {
+        file.write("[" + JSON.stringify(generateProperty(i))+ ",");
+      }
       if (i === 0) {
-        // file.write(JSON.stringify(generateProperty(i)) + "]");
-        file.write(JSON.stringify(generateProperty(i)));
+        file.write(JSON.stringify(generateProperty(i)) + "]");
+        // file.write(JSON.stringify(generateProperty(i)));
       } else {
-        ok = file.write(JSON.stringify(generateProperty(i)));
+        ok = file.write(JSON.stringify(generateProperty(i)) + ",");
+        // ok = file.write(JSON.stringify(generateProperty(i)));
       }
     }
 

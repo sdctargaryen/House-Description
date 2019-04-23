@@ -1,11 +1,15 @@
 const Property = require('./mongo.js');
 
-getPropertyHelper = (num) => Property.find({}).limit(1).skip(num);
+get = (num) => Property.findOne().where({id: num});
 
-getPropertyAll = () => Property.find({}).limit(100);
+del = (num) => Property.deleteOne().where({id: num});
 
-deletePropertyAll = () => Property.deleteMany({ __v: 0 })
+post = (data) => Property.insertMany(data);
+
+getAll = () => Property.find({}).limit(100);
+
+delAll = () => Property.deleteMany({ __v: 0 })
 
 
 
-module.exports = {getPropertyHelper, getPropertyAll, deletePropertyAll}
+module.exports = {get, getAll, delAll, del, post}

@@ -17,7 +17,7 @@ class Amenities extends React.Component {
           <div className={amenitiesstyle.heading}>Amenities</div>
           {this.props.amenlist.map((amenity, index)=>{
             return(
-              <div>
+              <div key={index}>
                 <div key={index + 100} className={amenitiesstyle.eachAmenity}>{amenity}</div>
                 <div className={amenitiesstyle.divider}></div>
               </div>
@@ -26,7 +26,7 @@ class Amenities extends React.Component {
           <div className={amenitiesstyle.heading}>Not included</div>
           {this.props.amennot.map((notAmen, index)=>{
             return(
-              <div>
+              <div key={index}>
                 <div key={index} className={amenitiesstyle.eachUnincluded}>{notAmen}</div>
                 <div className={amenitiesstyle.divider}></div>
               </div>

@@ -1,4 +1,13 @@
-const HouseDescriptions = require('../mySql.js');
+const {sequelize, HouseDescriptions} = require('../mySql.js');
+// var mysql = require('mysql');
+// var con = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "",
+//   database: "sharebnb"
+// });
+
+
 let counter = 1;
 let startTime = new Date();
 const adjectives = ['soft', 'open', 'amazing', 'expensive', 'beautiful', 'elegant', 'narrow', 'wet', 'classy', 'spacious', 'lively', 'colorful', 'shiny', 'marvelous', 'nicest', 'comfortable', 'small', 'big', 'huge', 'great', 'impossible', 'possible', 'unremarkable', 'remarkable', 'the best', 'spectacular', 'outstanding', 'lovely', 'incomparable', 'pleasant', 'wonderful', 'incredible', 'marvelous', 'perfect'];
@@ -115,7 +124,7 @@ let hostImgs = [
 //////////// TODO ///////////////
 
 generateProperty = () => {
-  let propObj = {
+  var newObj = {
     propertyInfo: {
       propType: randomElement(propTypes),
       title: randomElement(titles),
@@ -138,19 +147,63 @@ generateProperty = () => {
     summary: makeDescription(),
     __v: 0
   };
-  //   let property = new HouseDescriptions(propObj);
-  HouseDescriptions.create(propObj)
-    .then(() => {
-      endTime = new Date();
-      var timeDiff = (endTime - startTime) / 1000;
-      if (counter % 100 === 0 || counter === 1) {
-        console.log("created ", counter, "; time created ", timeDiff);
-      }
-      counter++;
-    })
-    .catch(err => console.error(err));
+  return newObj;
+  // let property = new HouseDescriptions(propObj);
+  // HouseDescriptions.create(propObj)
+  //   .then(() => {
+  //     endTime = new Date();
+  //     var timeDiff = (endTime - startTime) / 1000;
+  //     if (counter % 100 === 0 || counter === 1) {
+  //       console.log("created ", counter, "; time created ", timeDiff);
+  //     }
+  //     counter++;
+  //   })
+  //   .catch(err => console.error(err));
 };
 
-for (let i = 0; i < 100; i++) {
-  generateProperty();
+
+var ptarget = 1990;
+var inprog = 0;
+var ok = true;
+let generateSeed = () => {
+  // con.connect(function(err) {
+  //   if (err) throw err;
+  //   console.log("Connected!");
+  //   let newObj = generateProperty();
+  //   let {propertyInfo, beds, amenities, numBaths, host, summary, __v} = newObj;
+  //   let id = 9998011;
+  //   var sql = `INSERT INTO housedescriptions (id, propertyInfo, beds, amenities, numBaths, host, summary, __v) VALUES (${id}, ${propertyInfo}, ${beds}, ${amenities}, ${numBaths}, ${host}, ${summary}, ${__v})`;
+  //   con.query(sql, function (err, result) {
+  //     if (err) throw err;
+  //     console.log("1 record inserted");
+  //   });
+  // });
+  ptarget--; inprog++;
+  HouseDescriptions.create(generateProperty())
+    .then(() => {
+      inprog--; 
+
+      if(inprog>=200){
+        ok=false;
+      } else if (inprog<21){
+        ok=true;
+      }
+
+      endTime = new Date();
+      var timeDiff = (endTime - startTime) / 1000;
+      if (counter % 1000 === 0 || counter === 1) {
+        console.log(`created ${counter/1000}K, time elapsed ${timeDiff}, in queue: ${inprog}`);
+      }
+      counter++;
+
+      if(ptarget>0 && ok===true){
+        for (let m = 0; m<180; m++){
+          if(ptarget>0) generateSeed();
+        }
+      }
+    })
+    .catch(err => console.error(err));
+}
+for (let m = 0; m<20; m++){
+  generateSeed();
 }
