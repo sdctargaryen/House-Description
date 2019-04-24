@@ -8,7 +8,7 @@
     "build": "webpack -w",
     "mongoseed": "node database/propertySeed/mongo_seed.js",
     "mysqlseed": "node database/propertySeed/mysql_seed.js",
-    "tenmil": "node database/propertySeed/tenMillion.js",
+    "tenmil": "node database/propertySeed/tenMillionJSON.js",
     "tenmilcsv": "node database/propertySeed/tenMillionCSV.js"
   },
   "repository": {

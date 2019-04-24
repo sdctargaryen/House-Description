@@ -1,4 +1,4 @@
-const {sequelize, HouseDescriptions} = require('../mySql.js');
+const HouseDescriptions = require('../mySqlDB.js');
 // var mysql = require('mysql');
 // var con = mysql.createConnection({
 //   host: "localhost",

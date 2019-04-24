@@ -5,13 +5,15 @@ const sequelize = new Sequelize('sharebnb', 'root', '', {
   dialect: 'mysql',
   define: {
     timestamps: false
-  }
+  },
+  logging: false,
+  pool: { maxConnections: 5, maxIdleTime: 30}
 });
 
 sequelize
   .authenticate()
   .then(() => {
-    console.log('Connection with MySql has been established successfully.');
+    console.log('MySql authenticated.');
   })
   .catch(err => {
     console.error('Unable to connect to MySql:', err);
@@ -55,7 +57,7 @@ const HouseDescriptions = sequelize.define('housedescriptions', {
 }); 
 
 sequelize.sync({force: false})
-.then(()=>console.log('synced with mysql database'))
+.then(()=>console.log('synced with MySql database'))
 .catch(error => console.log(error));
 
-module.exports = {sequelize, HouseDescriptions};
+module.exports = HouseDescriptions;

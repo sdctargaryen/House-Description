@@ -1,77 +1,152 @@
-const dbHelpers = require('../database/dbHelpers.js');
-const {HouseDescriptions} = require('../database/mySql.js');
+const mongodb = require('../database/mongoDB.js');
+const mysqldb = require('../database/mySqlDB.js');
+
 
 const controller = {
-  get: (req, res) => {
-    var startTime = new Date();
-    dbHelpers.get(req.body.id)
-      .then(data => {
-        res.status(200).send(data);
-        let endTime = new Date();
-        let timeDiff = endTime - startTime;
-        console.log(`time elapsed: ${timeDiff}, id: ${req.body.id}, _id:${data._id}`);
-      })
-      .catch(err => console.error(err))
-  },
   post: (req, res) => {
-    var startTime = new Date();
-    dbHelpers.post(req.body)
-      .then((data) => {
-        res.status(200).send(`posted ${data}`);
+    let startTime = new Date();
+    mongodb.insertMany(req.body)
+      .then(() => {
         let endTime = new Date();
         let timeDiff = endTime - startTime;
-        console.log(`time elapsed: ${timeDiff}, id: ${req.body.id}`);
+        res.status(201).send({timeDiff});
       })
-      .catch(err => console.error(err))
+      .catch(err => {
+        console.error(err);
+        res.status(404).send("error from mongo post")
+      });
+  },
+  get: (req, res) => {
+    let startTime = new Date();
+    mongodb.findOne().lean().where({id: req.params.id})
+      .then(data => {
+        let endTime = new Date();
+        let timeDiff = endTime - startTime;
+        let data2 = {};
+        data2.timeDiff=timeDiff;
+        if (data) Object.assign(data2, data);
+        res.status(200).send(data2);
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(404).send("error from mongo get")
+      });
   },
   del: (req, res) => {
-    var startTime = new Date();
-    dbHelpers.del(req.params.id)
-      .then(data => {
-        res.status(200).send(`success deleted ${data.deletedCount} data`);
+    let startTime = new Date();
+    mongodb.deleteOne().where({id: req.params.id})
+      .then(() => {
         let endTime = new Date();
         let timeDiff = endTime - startTime;
-        console.log(`time elapsed: ${timeDiff}, id: ${req.params}, _id:${data._id}`);
+        res.status(202).send({timeDiff});
       })
-      .catch(err => console.error(err))
-  },  getAll: (req, res) => {
-    dbHelpers.getPropertyAll()
+      .catch(err => {
+        console.error(err);
+        res.status(404).send("error from mongo del")
+      });
+  },
+  put: (req, res) => {
+    let startTime = new Date();
+    mongodb.findOneAndUpdate({id: req.params.id}, req.body)
+      .then(() => {
+        let endTime = new Date();
+        let timeDiff = endTime - startTime;
+        res.status(203).send({timeDiff});
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(404).send("error from mongo put")
+      });
+  },
+
+  getAll: (req, res) => {
+    mongodb.find({}).lean().limit(100)
       .then(data => res.status(202).send(data))
-      .catch(err => console.log('error from delete ', err));
+      .catch(err => {
+        console.error(err);
+        res.status(404).send("error from mongo getAll")
+      });
   },
   delAll: (req, res) => {
-    dbHelpers.deletePropertyAll()
+    mongodb.deleteMany({ __v: 0 })
       .then(() => res.status(202).send('ALL deleted'))
-      .catch(err => console.log('error from delete ', err));
+      .catch(err => {
+        console.error(err);
+        res.status(404).send("error from mongo delAll")
+      });
   },
 
+// below is for MySQL ==============
 
-  sqlpost: (req, res) => {
-    HouseDescriptions.create(req.body)
-      .then(() => res.status(201).send('posted'))
-      .catch(err => console.error(err))
-  },
   sqlget: (req, res) => {
-    var startTime = new Date();
-    var random = Math.ceil(Math.random() * 10000000);
-    HouseDescriptions.findAll({where:{id:random}})
+    let startTime = new Date();
+    mysqldb.findOne({where:{id: req.params.id}})
       .then(data => {
+        let endTime = new Date();
+        let timeDiff = endTime - startTime; 
+        data.dataValues.timeDiff = timeDiff;
         res.status(200).send(data);
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(404).send("error from sqlget")
+      });
+  },
+  sqlpost: (req, res) => {
+    let startTime = new Date();
+    mysqldb.create(req.body)
+      .then(() => {
         let endTime = new Date();
         let timeDiff = endTime - startTime;
-        console.log(`time elapsed: ${timeDiff} =><= id: ${random}`);
+        res.status(201).send({timeDiff});
       })
-      .catch(err => console.error(err))
+      .catch(err => {
+        console.error(err);
+        res.status(404).send("error from sqlpost")
+      });
   },
+  sqldel: (req, res) => {
+    let startTime = new Date();
+    mysqldb.destroy({where: {id: req.params.id}})
+      .then(() => {
+        let endTime = new Date();
+        let timeDiff = endTime - startTime;
+        res.status(202).send({timeDiff});
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(404).send("error from sqldel")
+      });
+  },
+  sqlput: (req, res) => {
+    let startTime = new Date();
+    mysqldb.update(req.body, {where: {id: req.params.id}})
+      .then(() => {
+        let endTime = new Date();
+        let timeDiff = endTime - startTime;
+        res.status(203).send({timeDiff});
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(404).send("error from sqlput")
+      });
+  },
+
   sqlgetAll: (req, res) => {
-    HouseDescriptions.findAll({limit:100})
+    mysqldb.findAll({limit:100})
       .then(data => res.status(202).send(data))
-      .catch(err => console.log('error from delete ', err));
+      .catch(err => {
+        console.error(err);
+        res.status(404).send("error from sqlgetAll")
+      });
   },
   sqldeleteAll: (req, res) => {
-    HouseDescriptions.destroy({where: {__v:0}})
+    mysqldb.destroy({where: {__v:0}})
       .then(() => res.status(202).send('ALL deleted'))
-      .catch(err => console.log('error from delete ', err));
+      .catch(err => {
+        console.error(err);
+        res.status(404).send("error from sqldeleteAll")
+      });
   }
 }
 
