@@ -14,6 +14,9 @@ router
   .route('/all')
   .get(controller.getAll)
   .delete(controller.delAll)
+router
+  .route('/getPlay/:queries')
+  .get(controller.getPlay)
 
 
 router
@@ -28,5 +31,8 @@ router
   .route('/sqlall')
   .get(controller.sqlgetAll)
   .delete(controller.sqldeleteAll)
+router
+  .route('/sqlgetPlay/:queries')
+  .get(controller.sqlgetPlay)
 
-module.exports = router
+module.exports = router;

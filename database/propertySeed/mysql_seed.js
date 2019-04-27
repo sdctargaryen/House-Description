@@ -1,12 +1,4 @@
 const HouseDescriptions = require('../mySqlDB.js');
-// var mysql = require('mysql');
-// var con = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "",
-//   database: "sharebnb"
-// });
-
 
 let counter = 1;
 let startTime = new Date();
@@ -100,8 +92,7 @@ let amenIcons = [
 
 const firstNames = ['Mark', 'Jaime', 'Arya', 'Cersei', 'Tyrion', 'Michael', 'Sansa', 'Cassie', 'Sarah', 'Jackie', 'John', 'Fred', 'Jacob', 'Daniel', 'Jason', 'Anthony'];
 const lastNames = ['', 'Johnson', 'Lee', 'Smith', 'Snow', 'Matthews', 'Rodriquez', 'Chan', 'Schmidt', 'Lannister', 'Tyrell', 'Stark', 'Bolton'];
-const names = [`${randomElement(firstNames)}`, `${randomElement(firstNames)} ${randomElement(lastNames)}`, `${randomElement(firstNames)} and ${randomElement(firstNames)}`];
-randomElement(names);
+const names = () => [`${randomElement(firstNames)}`, `${randomElement(firstNames)} ${randomElement(lastNames)}`, `${randomElement(firstNames)} and ${randomElement(firstNames)}`];
 let hostImgs = [
   'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-adam.png',
   'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-anthony.png',
@@ -125,67 +116,38 @@ let hostImgs = [
 
 generateProperty = () => {
   var newObj = {
-    propertyInfo: {
-      propType: randomElement(propTypes),
-      title: randomElement(titles),
-      location: randomElement(locations),
-      numGuests: randomElement([2, 3, 4, 5, 6, 7, 8])
-    },
-    beds: {
-      quantity: randomElement([1, 2, 3, 4, 5, 6])
-    },
+    propertyInfo_propType: randomElement(propTypes),
+    propertyInfo_title: randomElement(titles),
+    propertyInfo_location: randomElement(locations),
+    propertyInfo_numGuests: randomElement([2, 3, 4, 5, 6, 7, 8]),
+    beds_quantity: randomElement([1, 2, 3, 4, 5, 6]),
     amenities: {
       basic: xRandomElements(amenity, numAmenities),
       notIncluded: xRandomElements(amenity, numNotIncluded),
       iconUrl: xRandomElements(amenIcons, randomElement([2, 3, 4])) // iconUrl
     },
     numBaths: Math.ceil(Math.random() * 4),
-    host: {
-      name: randomElement(names),
-      pictureUrl: randomElement(hostImgs) // randomElement(hostUrls)
-    },
+    host_name: randomElement(names()),
+    host_pictureUrl: randomElement(hostImgs),
     summary: makeDescription(),
     __v: 0
   };
   return newObj;
-  // let property = new HouseDescriptions(propObj);
-  // HouseDescriptions.create(propObj)
-  //   .then(() => {
-  //     endTime = new Date();
-  //     var timeDiff = (endTime - startTime) / 1000;
-  //     if (counter % 100 === 0 || counter === 1) {
-  //       console.log("created ", counter, "; time created ", timeDiff);
-  //     }
-  //     counter++;
-  //   })
-  //   .catch(err => console.error(err));
 };
 
 
-var ptarget = 1990;
+var ptarget = 1e7;
 var inprog = 0;
 var ok = true;
 let generateSeed = () => {
-  // con.connect(function(err) {
-  //   if (err) throw err;
-  //   console.log("Connected!");
-  //   let newObj = generateProperty();
-  //   let {propertyInfo, beds, amenities, numBaths, host, summary, __v} = newObj;
-  //   let id = 9998011;
-  //   var sql = `INSERT INTO housedescriptions (id, propertyInfo, beds, amenities, numBaths, host, summary, __v) VALUES (${id}, ${propertyInfo}, ${beds}, ${amenities}, ${numBaths}, ${host}, ${summary}, ${__v})`;
-  //   con.query(sql, function (err, result) {
-  //     if (err) throw err;
-  //     console.log("1 record inserted");
-  //   });
-  // });
   ptarget--; inprog++;
   HouseDescriptions.create(generateProperty())
     .then(() => {
       inprog--; 
 
-      if(inprog>=200){
+      if(inprog>=7000){
         ok=false;
-      } else if (inprog<21){
+      } else if (inprog<4001){
         ok=true;
       }
 
@@ -197,7 +159,7 @@ let generateSeed = () => {
       counter++;
 
       if(ptarget>0 && ok===true){
-        for (let m = 0; m<180; m++){
+        for (let m = 0; m<3000; m++){
           if(ptarget>0) generateSeed();
         }
       }

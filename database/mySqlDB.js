@@ -26,12 +26,24 @@ const HouseDescriptions = sequelize.define('housedescriptions', {
     primaryKey: true,
     autoIncrement: true
   },
-  propertyInfo: {
-    type: Sequelize.JSON,
+  propertyInfo_title: {
+    type: Sequelize.STRING(50),
+    allowNull: false
+  },
+  propertyInfo_location: {
+    type: Sequelize.STRING(20),
+    allowNull: false
+  },
+  propertyInfo_propType: {
+    type: Sequelize.STRING(30),
     allowNull: true
   },
-  beds: {
-    type: Sequelize.JSON,
+  propertyInfo_numGuests: {
+    type: Sequelize.INTEGER,
+    allowNull: true
+  },
+  beds_quantity: {
+    type: Sequelize.INTEGER,
     allowNull: true
   },
   amenities: {
@@ -42,8 +54,12 @@ const HouseDescriptions = sequelize.define('housedescriptions', {
     type: Sequelize.INTEGER,
     allowNull: true
   },
-  host: {
-    type: Sequelize.JSON,
+  host_name: {
+    type: Sequelize.STRING(30),
+    allowNull: false
+  },
+  host_pictureUrl: {
+    type: Sequelize.STRING(100),
     allowNull: true
   },
   summary: {
@@ -57,7 +73,7 @@ const HouseDescriptions = sequelize.define('housedescriptions', {
 }); 
 
 sequelize.sync({force: false})
-.then(()=>console.log('synced with MySql database'))
-.catch(error => console.log(error));
+  .then(()=>console.log('synced with MySql database'))
+  .catch(error => console.log(error));
 
 module.exports = HouseDescriptions;

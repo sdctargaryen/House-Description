@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const file = fs.createWriteStream('./try.json');
+const file = fs.createWriteStream('./seed.json');
 
 
 const adjectives = ['soft', 'open', 'amazing', 'expensive', 'beautiful', 'elegant', 'narrow', 'wet', 'classy', 'spacious', 'lively', 'colorful', 'shiny', 'marvelous', 'nicest', 'comfortable', 'small', 'big', 'huge', 'great', 'impossible', 'possible', 'unremarkable', 'remarkable', 'the best', 'spectacular', 'outstanding', 'lovely', 'incomparable', 'pleasant', 'wonderful', 'incredible', 'marvelous', 'perfect'];
@@ -81,8 +81,7 @@ let amenIcons = [
 
 const firstNames = ['Mark', 'Jaime', 'Arya', 'Cersei', 'Tyrion', 'Michael', 'Sansa', 'Cassie', 'Sarah', 'Jackie', 'John', 'Fred', 'Jacob', 'Daniel', 'Jason', 'Anthony'];
 const lastNames = ['', 'Johnson', 'Lee', 'Smith', 'Snow', 'Matthews', 'Rodriquez', 'Chan', 'Schmidt', 'Lannister', 'Tyrell', 'Stark', 'Bolton'];
-const names = [`${randomElement(firstNames)}`, `${randomElement(firstNames)} ${randomElement(lastNames)}`, `${randomElement(firstNames)} and ${randomElement(firstNames)}`];
-randomElement(names);
+const names = () => [`${randomElement(firstNames)}`, `${randomElement(firstNames)} ${randomElement(lastNames)}`, `${randomElement(firstNames)} and ${randomElement(firstNames)}`];
 let hostImgs = [
   'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-adam.png',
   'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-anthony.png',
@@ -107,25 +106,19 @@ let hostImgs = [
 generateProperty = (i) => {
   return {
     id: i,
-    propertyInfo: {
-      propType: randomElement(propTypes),
-      title: randomElement(titles),
-      location: randomElement(locations),
-      numGuests: randomElement([2, 3, 4, 5, 6, 7, 8])
-    },
-    beds: {
-      quantity: randomElement([1, 2, 3, 4, 5, 6])
-    },
+    propertyInfo_propType: randomElement(propTypes),
+    propertyInfo_title: randomElement(titles),
+    propertyInfo_location: randomElement(locations),
+    propertyInfo_numGuests: randomElement([2, 3, 4, 5, 6, 7, 8]),
+    beds_quantity: randomElement([1, 2, 3, 4, 5, 6]),
     amenities: {
       basic: xRandomElements(amenity, numAmenities),
       notIncluded: xRandomElements(amenity, numNotIncluded),
       iconUrl: xRandomElements(amenIcons, randomElement([2, 3, 4])) // iconUrl
     },
     numBaths: Math.ceil(Math.random() * 4),
-    host: {
-      name: randomElement(names),
-      pictureUrl: randomElement(hostImgs) // randomElement(hostUrls)
-    },
+    host_name: randomElement(names()),
+    host_pictureUrl: randomElement(hostImgs),
     summary: makeDescription(),
     __v: 0
   };
@@ -135,36 +128,32 @@ let startTime = new Date();
 var endTime;
 
 function writeTenMillionTimes() {
-  let i = 1e2;
+  let i = 1e7+1;
 
   write();
 
   function write() {
     let ok = true;
 
-    while (i > 0 && ok) {
+    while (i > 1 && ok) {
       i--;
       endTime = new Date();
       let timeDiff = (endTime - startTime) / 1000;
-      if (i % 10000 === 0) console.log(`${(1e2 - i) / 1000000}M of obj created at ${timeDiff} sec`);
+      if (i % 10000 === 0) console.log(`${(1e7 - i) / 1000000}M of obj created at ${timeDiff} sec`);
 
-      if (i===1e2-1) {
-        file.write("[" + JSON.stringify(generateProperty(i))+ ",");
-      }
-      if (i === 0) {
-        file.write(JSON.stringify(generateProperty(i)) + "]");
-        // file.write(JSON.stringify(generateProperty(i)));
+      if (i === 1) {
+        file.write(JSON.stringify(generateProperty(i)));
       } else {
-        ok = file.write(JSON.stringify(generateProperty(i)) + ",");
-        // ok = file.write(JSON.stringify(generateProperty(i)));
+        ok = file.write(JSON.stringify(generateProperty(i)));
       }
     }
 
-    if (i > 0) {
+    if (i > 1) {
       file.once('drain', write);
     }
   }
 }
 
 writeTenMillionTimes();
+// mongoimport -d airbnbDesc -c housedescriptions /Users/albertsaputra/HRLA28/ShareBnB/House-Description/seed.json
 

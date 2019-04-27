@@ -16,14 +16,27 @@ const controller = {
         res.status(404).send("error from mongo post")
       });
   },
+  getPlay: (req, res) => {
+    let startTime = new Date();
+    mongodb.find({"propertyInfo_location": req.params.queries}).limit(1).skip(600000)
+      .then(data => {
+        let timeDiff = new Date() - startTime;
+        let data2 = {timeDiff};
+        Object.assign(data2, data[0]._doc);
+        res.status(200).send(data2);
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(404).send("error from mongo get")
+      });
+  },
   get: (req, res) => {
     let startTime = new Date();
-    mongodb.findOne().lean().where({id: req.params.id})
+    mongodb.findOne().where({id: req.params.id}).lean()
       .then(data => {
         let endTime = new Date();
         let timeDiff = endTime - startTime;
-        let data2 = {};
-        data2.timeDiff=timeDiff;
+        let data2 = {timeDiff};
         if (data) Object.assign(data2, data);
         res.status(200).send(data2);
       })
@@ -78,6 +91,20 @@ const controller = {
 
 // below is for MySQL ==============
 
+  sqlgetPlay: (req, res) => {
+    let startTime = new Date();
+    mysqldb.findAll({limit:1, where:{"propertyInfo_location": req.params.queries}})
+      .then(data => {
+        let endTime = new Date();
+        let timeDiff = endTime - startTime; 
+        data[0].dataValues.timeDiff = timeDiff;
+        res.status(200).send(data[0]);
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(404).send("error from sqlgetPlay")
+      });
+  },
   sqlget: (req, res) => {
     let startTime = new Date();
     mysqldb.findOne({where:{id: req.params.id}})

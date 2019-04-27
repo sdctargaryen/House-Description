@@ -6,10 +6,9 @@ import HostOverview from './HostOverview';
 import NumberInfo from './NumberInfo';
 import AmenitiesIcons from './AmenitiesIcons';
 import Amenities from './Amenities';
-// import Sleeping from './Sleeping';
 import app from './app.css';
 
-var i = 1; var target = 10000;
+var i = 1; var target = 1000;
 var avgGetSpeed = [];
 var avgPostSpeed = [];
 var avgDelSpeed = [];
@@ -19,6 +18,11 @@ var avgGetServer = [];
 var avgPostServer = [];
 var avgDelServer = [];
 var avgPutServer = []
+
+let $randomElement = (array) => {
+  return array[Math.floor(Math.random() * array.length)];
+};
+let $locations = ['Los Angeles', 'Glendale', 'Marina del Rey', 'Hollywood', 'Hawthorne', 'Pasadena', 'Inglewood', 'Compton', 'Koreatown', 'Westchester', "Bel-Air", "Beverley Hills", "West LA", 'Santa Monica', 'Venice', 'Malibu'];
 
 var body = {
   "propertyInfo": {
@@ -115,18 +119,32 @@ export default class App extends React.Component {
   getProperty() {
     let rand = Math.ceil(Math.random() * 1e7);
     axios.get(`/api/sqldesc/${rand}`)
-      // axios.get(`api/sqldesc/${rand}`)
       .then(data => {
-        this.setState({
-          propertyInfo: data.data.propertyInfo,
-          host: data.data.host,
-          beds: data.data.beds,
-          numBaths: data.data.numBaths,
-          summary: data.data.summary,
-          amenList: data.data.amenities.basic,
-          amenNot: data.data.amenities.notIncluded,
-          amenIcon: data.data.amenities.iconUrl,
-        })
+        if(data.data.propertyInfo) {
+          let {propertyInfo, beds, amenities, numBaths, host, summary} = data.data;
+          this.setState({
+            propertyInfo: propertyInfo,
+            host: host,
+            beds: beds,
+            numBaths: numBaths,
+            summary: summary,
+            amenList: amenities.basic,
+            amenNot: amenities.notIncluded,
+            amenIcon: amenities.iconUrl,
+          });
+        } else {
+          let {propertyInfo_title, propertyInfo_location, propertyInfo_propType, propertyInfo_numGuests, beds_quantity, amenities, numBaths, host_name, host_pictureUrl, summary} = data.data;
+          this.setState({
+            propertyInfo: {title: propertyInfo_title, location: propertyInfo_location, propTyp: propertyInfo_propType, numGuests: propertyInfo_numGuests},
+            host: {name: host_name, pictureUrl: host_pictureUrl},
+            beds: {quantity: beds_quantity},
+            numBaths: numBaths,
+            summary: summary,
+            amenList: amenities.basic,
+            amenNot: amenities.notIncluded,
+            amenIcon: amenities.iconUrl,
+          });
+        }
       })
       .catch((err) => { console.error(err) })
   }
@@ -140,17 +158,18 @@ export default class App extends React.Component {
     let start = new Date();
     if(counter===1) this.showTime(144, 1);
     let rand = Math.ceil(Math.random() * 1e7);
-    axios.get(`api/sqldesc/${rand}`)
+    // axios.get(`api/sqldesc/${rand}`)
+    axios.get(`/api/sqlgetPlay/${$randomElement($locations)}`)
       .then(data => {
         let timeDiff = new Date() - start;
         avgGetSpeed.push(timeDiff); avgGetServer.push(data.data.timeDiff);
-        if (counter % 10000 == 0) console.log(`get #${counter}, id: ${rand.toLocaleString()}, \ntook ${timeDiff}ms to FE, took ${data.data.timeDiff}ms to server`);
+        if (counter % 10 == 0) console.log(`get #${counter}, id: ${rand.toLocaleString()}, \ntook ${timeDiff} ms to FE, took ${data.data.timeDiff} ms to server`);
         i++;
         if (i <= target) {
           this.get1000(i);
         }
         if (counter === target) {
-          console.warn(`avg speed to FE:${avgGetSpeed.reduce((a, b) => a + b, 0) / avgGetSpeed.length}, min: ${Math.min(...avgGetSpeed)}, max: ${Math.max(...avgGetSpeed)}; \n , server:${(avgGetServer.reduce((a, b) => a + b, 0) / avgGetServer.length).toFixed(2)}ms, min: ${Math.min(...avgGetServer)}, max: ${Math.max(...avgGetServer)}`);
+          console.warn(`avg speed to FE:${avgGetSpeed.reduce((a, b) => a + b, 0) / avgGetSpeed.length}, min: ${Math.min(...avgGetSpeed)}, max: ${Math.max(...avgGetSpeed)}; \n , server:${(avgGetServer.reduce((a, b) => a + b, 0) / avgGetServer.length).toFixed(2)} ms, min: ${Math.min(...avgGetServer)}, max: ${Math.max(...avgGetServer)}`);
           i = 1; avgGetSpeed = []; avgGetServer = [];
         }
       })
