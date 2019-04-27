@@ -9,4 +9,4 @@ scenarios:
   - flow:
     - loop:
         - get:
-            url: "/api/pgdesc/{{$randomNumber(1, 10000000)}}"
+            url: "/api/desc/{{$randomNumber(1, 10000000)}}"

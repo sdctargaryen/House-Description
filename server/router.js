@@ -20,38 +20,38 @@ router
 
 
 // for MySQL ======================
-router
-  .route('/sqldesc')
-  .post(controller.sqlpost)
-router
-  .route('/sqldesc/:id')
-  .get(controller.sqlget)
-  .delete(controller.sqldel)
-  .put(controller.sqlput)
-router
-  .route('/sqlall')
-  .get(controller.sqlgetAll)
-  .delete(controller.sqldeleteAll)
-router
-  .route('/sqlgetPlay/:queries')
-  .get(controller.sqlgetPlay)
+// router
+//   .route('/sqldesc')
+//   .post(controller.sqlpost)
+// router
+//   .route('/sqldesc/:id')
+//   .get(controller.sqlget)
+//   .delete(controller.sqldel)
+//   .put(controller.sqlput)
+// router
+//   .route('/sqlall')
+//   .get(controller.sqlgetAll)
+//   .delete(controller.sqldeleteAll)
+// router
+//   .route('/sqlgetPlay/:queries')
+//   .get(controller.sqlgetPlay)
 
 
 // for PostgreSQL ==================
-router
-  .route('/pgdesc')
-  .post(controller.pgpost)
-router
-  .route('/pgdesc/:id')
-  .get(controller.pgget)
-  .delete(controller.pgdel)
-  .put(controller.pgput)
-router
-  .route('/pgall')
-  .get(controller.pggetAll)
-  .delete(controller.pgdeleteAll)
-router
-  .route('/pggetPlay/:queries')
-  .get(controller.pggetPlay)
+// router
+//   .route('/pgdesc')
+//   .post(controller.pgpost)
+// router
+//   .route('/pgdesc/:id')
+//   .get(controller.pgget)
+//   .delete(controller.pgdel)
+//   .put(controller.pgput)
+// router
+//   .route('/pgall')
+//   .get(controller.pggetAll)
+//   .delete(controller.pgdeleteAll)
+// router
+//   .route('/pggetPlay/:queries')
+//   .get(controller.pggetPlay)
 
 module.exports = router;

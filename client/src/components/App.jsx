@@ -8,7 +8,7 @@ import AmenitiesIcons from './AmenitiesIcons';
 import Amenities from './Amenities';
 import app from './app.css';
 
-var i = 1; var target = 10000;
+var i = 1; var target = 100;
 var avgGetSpeed = [];
 var avgPostSpeed = [];
 var avgDelSpeed = [];
@@ -115,7 +115,7 @@ export default class App extends React.Component {
 
   getProperty() {
     let rand = Math.ceil(Math.random() * 1e7);
-    axios.get(`/api/pgdesc/${rand}`)
+    axios.get(`/api/desc/${rand}`)
       .then(data => {
         let { propertyInfo_title, propertyInfo_location, propertyInfo_propType, propertyInfo_numGuests, beds_quantity, amenities, numBaths, host_name, host_pictureUrl, summary } = data.data;
         this.setState({
@@ -141,8 +141,8 @@ export default class App extends React.Component {
     let start = new Date();
     if (counter === 1) this.showTime(144, 1);
     let rand = Math.ceil(Math.random() * 1e7);
-    // axios.get(`api/pgdesc/${rand}`)
-      axios.get(`/api/pggetPlay/${$randomElement($locations)}`)
+    axios.get(`api/desc/${rand}`)
+    // axios.get(`/api/getPlay/${$randomElement($locations)}`)
       .then(data => {
         let timeDiff = new Date() - start;
         avgGetSpeed.push(timeDiff); avgGetServer.push(data.data.timeDiff);
@@ -163,7 +163,7 @@ export default class App extends React.Component {
     let start = new Date();
     if (counter === 1) this.showTime(241, 3);
     body.id = 1e7 + Number(counter);
-    axios.post('api/pgdesc', body)
+    axios.post('api/desc', body)
       .then(data => {
         let timeDiff = new Date() - start;
         avgPostSpeed.push(timeDiff); avgPostServer.push(data.data.timeDiff);
@@ -182,8 +182,8 @@ export default class App extends React.Component {
 
   del1000(counter = 1) {
     let start = new Date();
-    let id = 1e7 + Number(counter);
-    axios.delete(`api/pgdesc/${id}`)
+    let id = 1e6 + Number(counter);
+    axios.delete(`api/desc/${id}`)
       .then(data => {
         let timeDiff = new Date() - start;
         avgDelSpeed.push(timeDiff); avgDelServer.push(data.data.timeDiff);
@@ -204,7 +204,7 @@ export default class App extends React.Component {
     let start = new Date();
     let id = 1e7 + counter;
     let update = { beds: { quantity: 100 }, numBaths: 100 };
-    axios.put(`api/pgdesc/${id}`, update)
+    axios.put(`api/desc/${id}`, update)
       .then(data => {
         let timeDiff = new Date() - start;
         avgPutSpeed.push(timeDiff); avgPutServer.push(data.data.timeDiff);
@@ -228,7 +228,7 @@ export default class App extends React.Component {
       <div>
         {/* please comment out these button below when not testing */}
         <button onClick={() => this.get1000(1)}>get {target.toLocaleString()}</button>
-        <button onClick={() => this.post1000(1)}>post put del{target.toLocaleString()}</button>
+        <button onClick={() => this.del1000(1)}>post put del{target.toLocaleString()}</button>
         <button style={{ backgroundColor: "black", color: "white" }} >{"Est. remaining time " + this.state.time + " secs to finish"}</button>
 
         <div>
