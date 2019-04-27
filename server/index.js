@@ -9,6 +9,7 @@ const app = express();
 const port = 3002;
 
 app.use(bodyParser.json());
+app.disable('x-powered-by');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 

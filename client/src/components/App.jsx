@@ -8,7 +8,7 @@ import AmenitiesIcons from './AmenitiesIcons';
 import Amenities from './Amenities';
 import app from './app.css';
 
-var i = 1; var target = 1000;
+var i = 1; var target = 10000;
 var avgGetSpeed = [];
 var avgPostSpeed = [];
 var avgDelSpeed = [];
@@ -25,48 +25,45 @@ let $randomElement = (array) => {
 let $locations = ['Los Angeles', 'Glendale', 'Marina del Rey', 'Hollywood', 'Hawthorne', 'Pasadena', 'Inglewood', 'Compton', 'Koreatown', 'Westchester', "Bel-Air", "Beverley Hills", "West LA", 'Santa Monica', 'Venice', 'Malibu'];
 
 var body = {
-  "propertyInfo": {
-    "propType": "Entire house",
-    "title": "Charming Entire apartment",
-    "location": "Malibu",
-    "numGuests": 2
-  },
-  "beds": {
-    "quantity": 5
-  },
+  "propertyInfo_title": "Themed Room in boutique hotel",
+  "propertyInfo_location": "Venice",
+  "propertyInfo_propType": "Entire house",
+  "propertyInfo_numGuests": 4,
+  "beds_quantity": 5,
   "amenities": {
     "basic": [
+      "Wireless Internet",
+      "Essentials",
       "Pool",
-      "Wireless Internet",
-      "TV",
-      "Pet-Friendly",
       "Free Parking",
-      "Kitchen",
-      "Wireless Internet",
-      "Elevator"
-    ],
-    "notIncluded": [
-      "Pet-Friendly",
-      "Pet-Friendly"
+      "Dryer",
+      "Essentials",
+      "Essentials"
     ],
     "iconUrl": [
       {
-        "TV": "https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-tv.png"
+        "Gym": "https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-gym.png"
       },
       {
-        "Kitchen": "https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-kitchen.png"
+        "Dryer": "https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-washdry.png"
+      },
+      {
+        "TV": "https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-tv.png"
       }
+    ],
+    "notIncluded": [
+      "Pool",
+      "Pet-Friendly",
+      "Essentials",
+      "Heating"
     ]
   },
-  "host": {
-    "name": "Sarah",
-    "pictureUrl": "https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-justin.png"
-  },
+  "numBaths": 2,
+  "host_name": "Jaime",
+  "host_pictureUrl": "https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-justin.png",
   "summary": [
-    "We're a elegant couple with a huge dog and big cat. If you like to enjoyed about electric vehicles or Internet memes, we'll all get along just fine! :) We're also happy to keep our distance and let you enjoy your stay correctly. You may happen to listen the pitter-patter of tiny paws or the rumblings of an outstanding Netflix marathon, but your sidedoor is on a the best level with beautiful attic.",
-    "Our shiny the best porch with possible bathroom is outstanding as heck and just from the hill from the LA's big-running farmer's market! You can take the incredible sights of the city then get comfy in your spectacular sidedoor with incredible bath. Despite these gems, some guests are not satisfied by our location. It is not improperly close to the pier, the bridge, and other wisely lively areas. This is a location best for those who do not mind runing a Lyft and are talking to dance a spectacular and incredible area. Please decide if our home is right for you before falling."
+    "Despite these gems, some guests are not satisfied by our location. It is not stupidly close to the pier, the bridge, and other generously perfect areas. This is a location best for those who do not mind beating a Lyft and are chokeing to automated a narrow and remarkable area. Please decide if our home is right for you before navigateding."
   ],
-  "numBaths": 3,
   "__v": 0
 }
 
@@ -104,13 +101,13 @@ export default class App extends React.Component {
   }
 
   showTime(speed, multiplier) {
-    let remaining = target*multiplier;
-    let setTimer = setInterval(()=>{
+    let remaining = target * multiplier;
+    let setTimer = setInterval(() => {
       this.setState({
         time: Math.floor(remaining / speed)
       });
       remaining -= speed;
-      if(remaining <= 0){
+      if (remaining <= 0) {
         clearInterval(setTimer);
       }
     }, 1000);
@@ -118,33 +115,19 @@ export default class App extends React.Component {
 
   getProperty() {
     let rand = Math.ceil(Math.random() * 1e7);
-    axios.get(`/api/sqldesc/${rand}`)
+    axios.get(`/api/pgdesc/${rand}`)
       .then(data => {
-        if(data.data.propertyInfo) {
-          let {propertyInfo, beds, amenities, numBaths, host, summary} = data.data;
-          this.setState({
-            propertyInfo: propertyInfo,
-            host: host,
-            beds: beds,
-            numBaths: numBaths,
-            summary: summary,
-            amenList: amenities.basic,
-            amenNot: amenities.notIncluded,
-            amenIcon: amenities.iconUrl,
-          });
-        } else {
-          let {propertyInfo_title, propertyInfo_location, propertyInfo_propType, propertyInfo_numGuests, beds_quantity, amenities, numBaths, host_name, host_pictureUrl, summary} = data.data;
-          this.setState({
-            propertyInfo: {title: propertyInfo_title, location: propertyInfo_location, propTyp: propertyInfo_propType, numGuests: propertyInfo_numGuests},
-            host: {name: host_name, pictureUrl: host_pictureUrl},
-            beds: {quantity: beds_quantity},
-            numBaths: numBaths,
-            summary: summary,
-            amenList: amenities.basic,
-            amenNot: amenities.notIncluded,
-            amenIcon: amenities.iconUrl,
-          });
-        }
+        let { propertyInfo_title, propertyInfo_location, propertyInfo_propType, propertyInfo_numGuests, beds_quantity, amenities, numBaths, host_name, host_pictureUrl, summary } = data.data;
+        this.setState({
+          propertyInfo: { title: propertyInfo_title, location: propertyInfo_location, propTyp: propertyInfo_propType, numGuests: propertyInfo_numGuests },
+          host: { name: host_name, pictureUrl: host_pictureUrl },
+          beds: { quantity: beds_quantity },
+          numBaths: numBaths,
+          summary: summary,
+          amenList: amenities.basic,
+          amenNot: amenities.notIncluded,
+          amenIcon: amenities.iconUrl,
+        });
       })
       .catch((err) => { console.error(err) })
   }
@@ -156,10 +139,10 @@ export default class App extends React.Component {
   }
   get1000(counter = 1) {
     let start = new Date();
-    if(counter===1) this.showTime(144, 1);
+    if (counter === 1) this.showTime(144, 1);
     let rand = Math.ceil(Math.random() * 1e7);
-    // axios.get(`api/sqldesc/${rand}`)
-    axios.get(`/api/sqlgetPlay/${$randomElement($locations)}`)
+    // axios.get(`api/pgdesc/${rand}`)
+      axios.get(`/api/pggetPlay/${$randomElement($locations)}`)
       .then(data => {
         let timeDiff = new Date() - start;
         avgGetSpeed.push(timeDiff); avgGetServer.push(data.data.timeDiff);
@@ -178,9 +161,9 @@ export default class App extends React.Component {
 
   post1000(counter = 1) {
     let start = new Date();
-    if(counter===1) this.showTime(241, 3);
+    if (counter === 1) this.showTime(241, 3);
     body.id = 1e7 + Number(counter);
-    axios.post('api/sqldesc', body)
+    axios.post('api/pgdesc', body)
       .then(data => {
         let timeDiff = new Date() - start;
         avgPostSpeed.push(timeDiff); avgPostServer.push(data.data.timeDiff);
@@ -200,7 +183,7 @@ export default class App extends React.Component {
   del1000(counter = 1) {
     let start = new Date();
     let id = 1e7 + Number(counter);
-    axios.delete(`api/sqldesc/${id}`)
+    axios.delete(`api/pgdesc/${id}`)
       .then(data => {
         let timeDiff = new Date() - start;
         avgDelSpeed.push(timeDiff); avgDelServer.push(data.data.timeDiff);
@@ -220,8 +203,8 @@ export default class App extends React.Component {
   put1000(counter = 1) {
     let start = new Date();
     let id = 1e7 + counter;
-    let update = { beds: { quantity: 100 }, numBaths: 100};
-    axios.put(`api/sqldesc/${id}`, update)
+    let update = { beds: { quantity: 100 }, numBaths: 100 };
+    axios.put(`api/pgdesc/${id}`, update)
       .then(data => {
         let timeDiff = new Date() - start;
         avgPutSpeed.push(timeDiff); avgPutServer.push(data.data.timeDiff);
@@ -246,7 +229,7 @@ export default class App extends React.Component {
         {/* please comment out these button below when not testing */}
         <button onClick={() => this.get1000(1)}>get {target.toLocaleString()}</button>
         <button onClick={() => this.post1000(1)}>post put del{target.toLocaleString()}</button>
-        <button  style={{backgroundColor: "black", color:"white"}} >{"Est. remaining time "+this.state.time+" secs to finish"}</button>
+        <button style={{ backgroundColor: "black", color: "white" }} >{"Est. remaining time " + this.state.time + " secs to finish"}</button>
 
         <div>
           <NavBar property={propertyInfo.title} location={propertyInfo.location} />

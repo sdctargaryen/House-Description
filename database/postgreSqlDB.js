@@ -1,22 +1,22 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('sharebnb', 'root', '', {
+const sequelize = new Sequelize('sharebnb', '', '', {
   host: 'localhost',
-  dialect: 'mysql',
+  dialect: 'postgres',
   define: {
     timestamps: false
   },
   logging: false,
-  pool: { maxConnections: 20, maxIdleTime: 30}
+  pool: { maxConnections: 20, maxIdleTime: 30 }
 });
 
 sequelize
   .authenticate()
   .then(() => {
-    console.log('MySql authenticated.');
+    console.log('Postgres authenticated.');
   })
   .catch(err => {
-    console.error('Unable to connect to MySql:', err);
+    console.error('Unable to connect to Postgres:', err);
   });
 
 
@@ -70,10 +70,20 @@ const HouseDescriptions = sequelize.define('housedescriptions', {
     type: Sequelize.INTEGER,
     allowNull: false
   }
-}); 
+},
+  // {
+  //   indexes: [
+  //     {
+  //       name: 'loc',
+  //       method: 'HASH',
+  //       fields: ['propertyInfo_location']
+  //     }
+  //   ]
+  // }
+);
 
-sequelize.sync({force: false})
-  .then(()=>console.log('MySql synced.'))
+sequelize.sync({ force: false })
+  .then(() => console.log('Postgres synced.'))
   .catch(error => console.log(error));
 
 module.exports = HouseDescriptions;
