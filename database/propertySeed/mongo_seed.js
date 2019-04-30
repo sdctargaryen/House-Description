@@ -1,28 +1,30 @@
 const MongoClient = require('mongodb').MongoClient;
-const mongoOptions = {useNewUrlParser:true};
+const mongoOptions = { useNewUrlParser: true };
 
 const url = 'mongodb://localhost:27017';
 const dbName = 'airbnbDesc';
 
+let counter = 1;
+let startTime = new Date();
+var ptarget = 1e7;
+var inprog = 0;
+var ok = true;
+
 MongoClient.connect(url, mongoOptions, (err, client) => {
   if (err) {
-    console.log (err);
+    console.log(err);
   } else {
-    console.log ("connected to mongoDB");
+    console.log("connected to mongoDB");
     var db = client.db(dbName);
     var collection = db.collection("properties");
-    for (let i = 0; i < 1500; i++) {
-      generateProperty(collection);
-    }
+    generateProperty(collection);
   }
 });
 
-let counter = 1;
-let startTime = new Date();
 const adjectives = ['soft', 'open', 'amazing', 'expensive', 'beautiful', 'elegant', 'narrow', 'wet', 'classy', 'spacious', 'lively', 'colorful', 'shiny', 'marvelous', 'nicest', 'comfortable', 'small', 'big', 'huge', 'great', 'impossible', 'possible', 'unremarkable', 'remarkable', 'the best', 'spectacular', 'outstanding', 'lovely', 'incomparable', 'pleasant', 'wonderful', 'incredible', 'marvelous', 'perfect'];
 const adverbs = ['lively', 'actively', 'happily', 'graciously', 'generously', 'genuinely', 'poorly', 'intensely', 'depressingly', 'properly', 'insanely', 'terribly', 'widely', 'wisely', 'stupidly', 'improperly', 'correctly', 'fairly', 'comfortably', 'dryly', 'inconspicuously', 'humorously', 'proactively', 'gracefully'];
 const prepositions = ['to', 'in', 'on', 'over', 'above', 'below', 'under', 'at', 'from', 'into', 'onto', 'on top of', 'of'];
-const verbs = ['downloaded', 'interfaced', 'deployed', 'developed', 'built', 'invented', 'experienced', 'navigated', 'aided', 'enjoyed', 'engineered', 'installed', 'debugged', 'delegated', 'automated', 'formulated', 'systematized', 'overhauled', 'computed', 'enjoy','run', 'eat', 'walk', 'fly', 'talk', 'sing', 'dance', 'wallow', 'pace', 'sweat', 'draw', 'drink', 'teach', 'fall', 'joke', 'take', 'treat', 'peer', 'hear', 'listen', 'guess', 'cheer', 'whine', 'bark', 'sprint', 'write', 'help', 'swim', 'follow', 'make', 'break', 'fake', 'choke', 'beat', 'sit', 'lie', 'lay', 'watch'];
+const verbs = ['downloaded', 'interfaced', 'deployed', 'developed', 'built', 'invented', 'experienced', 'navigated', 'aided', 'enjoyed', 'engineered', 'installed', 'debugged', 'delegated', 'automated', 'formulated', 'systematized', 'overhauled', 'computed', 'enjoy', 'run', 'eat', 'walk', 'fly', 'talk', 'sing', 'dance', 'wallow', 'pace', 'sweat', 'draw', 'drink', 'teach', 'fall', 'joke', 'take', 'treat', 'peer', 'hear', 'listen', 'guess', 'cheer', 'whine', 'bark', 'sprint', 'write', 'help', 'swim', 'follow', 'make', 'break', 'fake', 'choke', 'beat', 'sit', 'lie', 'lay', 'watch'];
 const area = ['entrance', 'doorway', 'bedroom', 'bathroom', 'study', 'living room', 'basement', 'attic', 'closet', 'library', 'porch', 'yard', 'roof', 'kitchen', 'dining room', 'garage', 'backdoor', 'sidedoor'];
 
 let randomElement = array => array[Math.floor(Math.random() * array.length)];
@@ -48,7 +50,7 @@ const sentences = [
 let makeParagraph = () => {
   let result = [];
   let randomIndex = Math.ceil(Math.random() * 2);
-  while (randomIndex > 0){
+  while (randomIndex > 0) {
     result.push(randomElement(sentences));
     randomIndex--;
   };
@@ -58,7 +60,7 @@ let makeParagraph = () => {
 let makeDescription = () => {
   let result = [];
   let randomIndex = Math.ceil(Math.random() * 2);
-  while(randomIndex > 0){
+  while (randomIndex > 0) {
     result.push(makeParagraph())
     randomIndex--;
   };
@@ -71,12 +73,10 @@ const noun = ['Home', 'Flat', 'Apartment', 'Suite', 'Loft', 'Cottage', 'Townhous
 const adjective = ['', "Beautiful", 'Cozy', 'Convenient', 'Magical', 'Private', 'Vintage', 'Charming', 'Themed', 'Modern', 'Luxurious', 'Getaway', 'Quaint', 'Hilltop', 'Scenic', 'Picturesque', 'Comfy'];
 
 const titles = [`${randomElement(adjective)} ${randomElement(noun)}`, `${randomElement(adjective)} and ${randomElement(adjective)} ${randomElement(noun)}`, `${randomElement(adjective)} ${randomElement(noun)} around ${randomElement(locations)} area`, `${randomElement(adjective)} ${randomElement(propTypes)}`];
-  
-// const bedTypes = ['single', 'double', 'queen', 'king', 'sofa', 'sofa bed', 'hammock', 'air mattress', 'bunk bed', 'water bed', 'floor mattress', 'crib', 'toddler bed'];
 
 let xRandomElements = (array, value) => {
   let result = [];
-  while (value > 0){
+  while (value > 0) {
     result.push(randomElement(array));
     value--;
   }
@@ -84,33 +84,24 @@ let xRandomElements = (array, value) => {
 }
 
 
-// let bedIcons = [
-//   {floor: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-floor.png'},
-//   {queen: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-queenking.png'},
-//   {king: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-queenking.png'},
-//   {single: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-single.png'},
-//   {sofa: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/beds/bed-sofa.png'}
-// ];
-
 const amenity = ['Pool', 'Kitchen', 'Wireless Internet', 'Pet-Friendly', 'Free Parking', 'TV', 'Essentials', 'Heating', 'Elevator', 'Gym', 'Washer', 'Dryer'];
 let numAmenities = randomElement([6, 7, 8]);
 let numNotIncluded = randomElement([2, 3, 4, 5]);
 let amenIcons = [
-  {Elevator: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-elevator.png'},
-  {Gym: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-gym.png'},
-  {Kitchen: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-kitchen.png'},
-  {Parking: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-parking.png'},
-  {TV: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-tv.png'},
-  {Washer: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-washdry.png'},
-  {Dryer: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-washdry.png'},
-  {Wifi: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-wifi.png'}
+  { Elevator: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-elevator.png' },
+  { Gym: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-gym.png' },
+  { Kitchen: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-kitchen.png' },
+  { Parking: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-parking.png' },
+  { TV: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-tv.png' },
+  { Washer: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-washdry.png' },
+  { Dryer: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-washdry.png' },
+  { Wifi: 'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/amenities/amen-wifi.png' }
 ];
 //////////// TODO ///////////////
 
 const firstNames = ['Mark', 'Jaime', 'Arya', 'Cersei', 'Tyrion', 'Michael', 'Sansa', 'Cassie', 'Sarah', 'Jackie', 'John', 'Fred', 'Jacob', 'Daniel', 'Jason', 'Anthony'];
 const lastNames = ['', 'Johnson', 'Lee', 'Smith', 'Snow', 'Matthews', 'Rodriquez', 'Chan', 'Schmidt', 'Lannister', 'Tyrell', 'Stark', 'Bolton'];
 const names = [`${randomElement(firstNames)}`, `${randomElement(firstNames)} ${randomElement(lastNames)}`, `${randomElement(firstNames)} and ${randomElement(firstNames)}`];
-randomElement(names);
 let hostImgs = [
   'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-adam.png',
   'https://s3-us-west-1.amazonaws.com/airbnb-icons-png/hosts/host-anthony.png',
@@ -134,36 +125,47 @@ let hostImgs = [
 
 generateProperty = (collection) => {
   let propObj = {
-    propertyInfo: {
-      propType: randomElement(propTypes), 
-      title: randomElement(titles), 
-      location: randomElement(locations),
-      numGuests: randomElement([2, 3, 4, 5, 6, 7, 8])
-    },
-    beds: {
-      quantity: randomElement([1, 2, 3, 4, 5, 6])
-    },
+    propertyInfo_propType: randomElement(propTypes),
+    propertyInfo_title: randomElement(titles),
+    propertyInfo_location: randomElement(locations),
+    propertyInfo_numGuests: randomElement([2, 3, 4, 5, 6, 7, 8]),
+    beds_quantity: randomElement([1, 2, 3, 4, 5, 6]),
     amenities: {
       basic: xRandomElements(amenity, numAmenities),
       notIncluded: xRandomElements(amenity, numNotIncluded),
       iconUrl: xRandomElements(amenIcons, randomElement([2, 3, 4])) // iconUrl
     },
     numBaths: Math.ceil(Math.random() * 4),
-    host: {
-      name: randomElement(names), 
-      pictureUrl: randomElement(hostImgs) // randomElement(hostUrls)
-    },
+    host_name: randomElement(names()),
+    host_pictureUrl: randomElement(hostImgs),
     summary: makeDescription(),
-    __v: 0
+    __v: 0,
+    id: ptarget
   };
-  
+
+  ptarget--; inprog++;
   collection.insertOne(propObj)
     .then(() => {
+      inprog--;
+
+      if (inprog >= 7000) {
+        ok = false;
+      } else if (inprog < 4001) {
+        ok = true;
+      }
+
       endTime = new Date();
       var timeDiff = (endTime - startTime) / 1000;
-      if (counter % 500 === 0 || counter === 1) {
-      console.log("created ", counter, "; time elapsed ", timeDiff);}
+      if (counter % 1000 === 0 || counter === 1) {
+        console.log(`created ${counter / 1000}K, time elapsed ${timeDiff}, in queue: ${inprog}`);
+      }
       counter++;
+
+      if (ptarget > 0 && ok === true) {
+        for (let m = 0; m < 3000; m++) {
+          if (ptarget > 0) generateProperty(collection);
+        }
+      }
     })
     .catch(err => console.error(err));
 };

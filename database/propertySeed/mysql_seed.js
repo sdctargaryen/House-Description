@@ -1,7 +1,5 @@
 const HouseDescriptions = require('../mySqlDB.js');
 
-let counter = 1;
-let startTime = new Date();
 const adjectives = ['soft', 'open', 'amazing', 'expensive', 'beautiful', 'elegant', 'narrow', 'wet', 'classy', 'spacious', 'lively', 'colorful', 'shiny', 'marvelous', 'nicest', 'comfortable', 'small', 'big', 'huge', 'great', 'impossible', 'possible', 'unremarkable', 'remarkable', 'the best', 'spectacular', 'outstanding', 'lovely', 'incomparable', 'pleasant', 'wonderful', 'incredible', 'marvelous', 'perfect'];
 const adverbs = ['lively', 'actively', 'happily', 'graciously', 'generously', 'genuinely', 'poorly', 'intensely', 'depressingly', 'properly', 'insanely', 'terribly', 'widely', 'wisely', 'stupidly', 'improperly', 'correctly', 'fairly', 'comfortably', 'dryly', 'inconspicuously', 'humorously', 'proactively', 'gracefully'];
 const prepositions = ['to', 'in', 'on', 'over', 'above', 'below', 'under', 'at', 'from', 'into', 'onto', 'on top of', 'of'];
@@ -136,6 +134,8 @@ generateProperty = () => {
 };
 
 
+let counter = 1;
+let startTime = new Date();
 var ptarget = 1e7;
 var inprog = 0;
 var ok = true;
