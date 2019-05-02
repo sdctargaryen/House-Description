@@ -18,12 +18,9 @@ const controller = {
       });
   },
   getPlay: (req, res) => {
-    // let startTime = new Date();
     reqArr = req.params.queries.split("||");
     mongodb.find({[reqArr[2]]: reqArr[0]}).limit(10).skip(10*(reqArr[1] - 1))
       .then(data => {
-        // let timeDiff = new Date() - startTime;
-        // Object.assign(data2, data);
         res.status(200).send(data);
       })
       .catch(err => {
