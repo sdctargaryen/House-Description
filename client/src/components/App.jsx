@@ -124,8 +124,8 @@ export default class App extends React.Component {
     }, 1000);
   }
 
-  getProperty() {
-    let rand = Math.ceil(Math.random() * 1e7);
+  getProperty(num) {
+    let rand = num || Math.ceil(Math.random() * 1e7);
     axios.get(`/api/desc/${rand}`)
       .then(data => {
         let { propertyInfo_title, propertyInfo_location, propertyInfo_propType, propertyInfo_numGuests, beds_quantity, amenities, numBaths, host_name, host_pictureUrl, summary } = data.data;
@@ -140,7 +140,7 @@ export default class App extends React.Component {
           amenIcon: amenities.iconUrl
         });
       })
-      .catch((err) => { console.error(err) })
+      .catch((err) => { console.error(err) });
   }
 
   clickMoreSum() {
@@ -342,7 +342,7 @@ export default class App extends React.Component {
           </label></form>
           <button name="propertyInfo_location" onClick={this.prevPage}>prev page</button>&nbsp;
           <button name="propertyInfo_location" onClick={this.nextPage}>next page</button>
-          <div>{propertyInfo_location.map((e, idx) => (<p key={idx}>#{idx + 1 + 10*(locPage-1)}. {e.propertyInfo_title} | location: {e.propertyInfo_location} | Guests Number: {e.propertyInfo_numGuests}</p>))}</div>
+          <div>{propertyInfo_location.map((e, idx) => (<p className={app.pList} onClick={() => this.getProperty(e.id)} key={idx}>{idx + 1 + 10*(locPage-1)}. {e.propertyInfo_title} | location: {e.propertyInfo_location} | Guests Number: {e.propertyInfo_numGuests}</p>))}</div>
           <br />
           <form><label htmlFor="loc">Browse on Number of Guests:&nbsp;
           <select id="loc" name="propertyInfo_numGuests" onChange={this.selectHandler}>
@@ -354,7 +354,7 @@ export default class App extends React.Component {
           </label></form>
           <button name="propertyInfo_numGuests" onClick={this.prevPage}>prev page</button>&nbsp;
           <button name="propertyInfo_numGuests" onClick={this.nextPage}>next page</button>
-          <div>{propertyInfo_numGuests.map((e, idx) => (<p key={idx}>#{idx + 1 + 10*(numPage-1)}. {e.propertyInfo_title} | location: {e.propertyInfo_location} | Guests Number: {e.propertyInfo_numGuests}</p>))}</div>
+          <div>{propertyInfo_numGuests.map((e, idx) => (<p className={app.pList} onClick={() => this.getProperty(e.id)} key={idx}>{idx + 1 + 10*(numPage-1)}. {e.propertyInfo_title} | location: {e.propertyInfo_location} | Guests Number: {e.propertyInfo_numGuests}</p>))}</div>
 
           <hr />
         </div>
