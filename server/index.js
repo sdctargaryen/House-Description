@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-// const morgan = require('morgan');
+const morgan = require('morgan');
 const path = require('path');
 const router = require('./router.js');
 const db = require('../database/mongoDB.js');
@@ -12,7 +12,7 @@ const port = 3002;
 app.use(bodyParser.json());
 app.disable('x-powered-by');
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(morgan('dev'));
+app.use(morgan('dev'));
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use('/api', router);
