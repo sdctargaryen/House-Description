@@ -178,7 +178,7 @@ export default class App extends React.Component {
       .then(data => {
         let timeDiff = new Date() - start;
         avgPostSpeed.push(timeDiff); avgPostServer.push(data.data.timeDiff);
-        if (counter % 10000 == 0) console.log(`post #${counter}, id: ${body.id.toLocaleString()}, \ntook ${timeDiff}ms to FE, took ${data.data.timeDiff}ms to server`);
+        if (counter % 10 == 0) console.log(`post #${counter}, id: ${body.id.toLocaleString()}, \ntook ${timeDiff}ms to FE, took ${data.data.timeDiff}ms to server`);
         i++;
         if (i <= target) {
           this.post1000(i);
@@ -193,12 +193,12 @@ export default class App extends React.Component {
 
   del1000(counter = 1) {
     let start = new Date();
-    let id = 1e6 + Number(counter);
+    let id = 1e7 + Number(counter);
     axios.delete(`api/desc/${id}`)
       .then(data => {
         let timeDiff = new Date() - start;
         avgDelSpeed.push(timeDiff); avgDelServer.push(data.data.timeDiff);
-        if (counter % 10000 == 0) console.log(`del #${counter}, id: ${id.toLocaleString()}, \ntook ${timeDiff}ms to FE, took ${data.data.timeDiff}ms to server`);
+        if (counter % 10 == 0) console.log(`del #${counter}, id: ${id.toLocaleString()}, \ntook ${timeDiff}ms to FE, took ${data.data.timeDiff}ms to server`);
         i++;
         if (i <= target) {
           this.del1000(i);
@@ -219,7 +219,7 @@ export default class App extends React.Component {
       .then(data => {
         let timeDiff = new Date() - start;
         avgPutSpeed.push(timeDiff); avgPutServer.push(data.data.timeDiff);
-        if (counter % 10000 == 0) console.log(`Put #${counter}, id: ${id.toLocaleString()}, \ntook ${timeDiff} ms to FE, took ${data.data.timeDiff}ms to server`);
+        if (counter % 10 == 0) console.log(`Put #${counter}, id: ${id.toLocaleString()}, \ntook ${timeDiff} ms to FE, took ${data.data.timeDiff}ms to server`);
         i++;
         if (i <= target) {
           this.put1000(i);
@@ -328,7 +328,7 @@ export default class App extends React.Component {
         <div>
           *These buttons below are solely for the purpose of testing CRUD request.<hr />
           <button onClick={() => this.get1000(1)}>get {target.toLocaleString()} by ID</button>&nbsp;
-          <button onClick={() => this.del1000(1)}>post,put,del {target.toLocaleString()} by ID</button>&nbsp;
+          <button onClick={() => this.post1000(1)}>post,put,del {target.toLocaleString()} by ID</button>&nbsp;
           {/* <button style={{ backgroundColor: "grey", color: "white" }} >{"Est. remaining time " + this.state.time + " secs to finish"}</button>&nbsp; */}
           <br/>Open the DevTools Console to see the progress of CRUD request by ID.
           <br /> <br />
