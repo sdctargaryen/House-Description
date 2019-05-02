@@ -1,4 +1,4 @@
-const Property = require('../mongo.js');
+const Property = require('../mongoDB.js');
 
 let counter = 1;
 let startTime = new Date();

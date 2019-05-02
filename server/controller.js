@@ -1,4 +1,4 @@
-const mongodb = require('../database/mongoDB.js');
+const mongodb = require('../database/mongoSchema.js');
 // const mysqldb = require('../database/mySqlDB.js');
 // const pgsqldb = require('../database/postgreSqlDB.js');
 
@@ -18,13 +18,14 @@ const controller = {
       });
   },
   getPlay: (req, res) => {
-    let startTime = new Date();
-    mongodb.find({"propertyInfo_location": req.params.queries}).limit(1).skip(600000)
+    // let startTime = new Date();
+    reqArr = req.params.queries.split("||");
+    console.log({[reqArr[2]]: reqArr[0]}, 10*reqArr[1]);
+    mongodb.find({[reqArr[2]]: reqArr[0]}).limit(10).skip(10*(reqArr[1] - 1))
       .then(data => {
-        let timeDiff = new Date() - startTime;
-        let data2 = {timeDiff};
-        Object.assign(data2, data[0]._doc);
-        res.status(200).send(data2);
+        // let timeDiff = new Date() - startTime;
+        // Object.assign(data2, data);
+        res.status(200).send(data);
       })
       .catch(err => {
         console.error(err);

@@ -128,7 +128,7 @@ let startTime = new Date();
 var endTime;
 
 function writeTenMillionTimes() {
-  let i = 1e7+1;
+  let i = 1e6+1;
 
   write();
 
@@ -139,7 +139,7 @@ function writeTenMillionTimes() {
       i--;
       endTime = new Date();
       let timeDiff = (endTime - startTime) / 1000;
-      if (i % 10000 === 0) console.log(`${(1e7 - i) / 1000000}M of obj created at ${timeDiff} sec`);
+      if (i % 10000 === 0) console.log(`${(1e6 - i) / 1000000}M of obj created at ${timeDiff} sec`);
 
       if (i === 1) {
         file.write(JSON.stringify(generateProperty(i)));
@@ -155,5 +155,5 @@ function writeTenMillionTimes() {
 }
 
 writeTenMillionTimes();
-// mongoimport -d airbnbDesc -c housedescriptions /Users/albertsaputra/HRLA28/ShareBnB/House-Description/seed.json
+// mongoimport -d airbnbDesc -c housedescriptions seed.json
 

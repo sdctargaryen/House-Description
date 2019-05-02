@@ -23,7 +23,7 @@ let $randomElement = (array) => {
   return array[Math.floor(Math.random() * array.length)];
 };
 let $locations = ['Los Angeles', 'Glendale', 'Marina del Rey', 'Hollywood', 'Hawthorne', 'Pasadena', 'Inglewood', 'Compton', 'Koreatown', 'Westchester', "Bel-Air", "Beverley Hills", "West LA", 'Santa Monica', 'Venice', 'Malibu'];
-
+let $numGuests = [2, 3, 4, 5, 6, 7, 8];
 var body = {
   "propertyInfo_title": "Themed Room in boutique hotel",
   "propertyInfo_location": "Venice",
@@ -86,6 +86,14 @@ export default class App extends React.Component {
       readMoreSum: false,
       showAmens: false,
       time: 0,
+      // search by location / num of guests
+      propertyInfo_location: [],
+      locQuery: '',
+      locPage: 1,
+      propertyInfo_numGuests: [],
+      numQuery: '',
+      numPage: 1,
+
     };
     this.showTime = this.showTime.bind(this);
     this.getProperty = this.getProperty.bind(this);
@@ -94,6 +102,9 @@ export default class App extends React.Component {
     this.post1000 = this.post1000.bind(this);
     this.del1000 = this.del1000.bind(this);
     this.put1000 = this.put1000.bind(this);
+    this.selectHandler = this.selectHandler.bind(this);
+    this.nextPage = this.nextPage.bind(this);
+    this.prevPage = this.prevPage.bind(this);
   }
 
   componentDidMount() {
@@ -126,7 +137,7 @@ export default class App extends React.Component {
           summary: summary,
           amenList: amenities.basic,
           amenNot: amenities.notIncluded,
-          amenIcon: amenities.iconUrl,
+          amenIcon: amenities.iconUrl
         });
       })
       .catch((err) => { console.error(err) })
@@ -142,7 +153,7 @@ export default class App extends React.Component {
     if (counter === 1) this.showTime(144, 1);
     let rand = Math.ceil(Math.random() * 1e7);
     axios.get(`api/desc/${rand}`)
-    // axios.get(`/api/getPlay/${$randomElement($locations)}`)
+      // axios.get(`/api/getPlay/${rand}`)
       .then(data => {
         let timeDiff = new Date() - start;
         avgGetSpeed.push(timeDiff); avgGetServer.push(data.data.timeDiff);
@@ -152,7 +163,7 @@ export default class App extends React.Component {
           this.get1000(i);
         }
         if (counter === target) {
-          console.warn(`avg speed to FE:${avgGetSpeed.reduce((a, b) => a + b, 0) / avgGetSpeed.length}, min: ${Math.min(...avgGetSpeed)}, max: ${Math.max(...avgGetSpeed)}; \n , server:${(avgGetServer.reduce((a, b) => a + b, 0) / avgGetServer.length).toFixed(2)} ms, min: ${Math.min(...avgGetServer)}, max: ${Math.max(...avgGetServer)}`);
+          console.warn(`avg speed to FE:${avgGetSpeed.reduce((a, b) => a + b, 0) / avgGetSpeed.length} ms, min: ${Math.min(...avgGetSpeed)}, max: ${Math.max(...avgGetSpeed)}; \n , server:${(avgGetServer.reduce((a, b) => a + b, 0) / avgGetServer.length).toFixed(2)} ms, min: ${Math.min(...avgGetServer)}, max: ${Math.max(...avgGetServer)}`);
           i = 1; avgGetSpeed = []; avgGetServer = [];
         }
       })
@@ -173,7 +184,7 @@ export default class App extends React.Component {
           this.post1000(i);
         }
         if (counter === target) {
-          console.warn(`avg speed to FE:${(avgPostSpeed.reduce((a, b) => a + b, 0) / avgPostSpeed.length).toFixed(2)}, min: ${Math.min(...avgPostSpeed)}, max: ${Math.max(...avgPostSpeed)}; \n , server:${(avgPostServer.reduce((a, b) => a + b, 0) / avgPostServer.length).toFixed(2)}ms, min: ${Math.min(...avgPostServer)}, max: ${Math.max(...avgPostServer)}`);
+          console.warn(`avg speed to FE:${(avgPostSpeed.reduce((a, b) => a + b, 0) / avgPostSpeed.length).toFixed(2)} ms, min: ${Math.min(...avgPostSpeed)}, max: ${Math.max(...avgPostSpeed)}; \n , server:${(avgPostServer.reduce((a, b) => a + b, 0) / avgPostServer.length).toFixed(2)}ms, min: ${Math.min(...avgPostServer)}, max: ${Math.max(...avgPostServer)}`);
           i = 1; avgPostSpeed = []; avgPostServer = []; this.put1000(1);
         }
       })
@@ -193,7 +204,7 @@ export default class App extends React.Component {
           this.del1000(i);
         }
         if (counter === target) {
-          console.warn(`avg speed to FE:${(avgDelSpeed.reduce((a, b) => a + b, 0) / avgDelSpeed.length).toFixed(2)}, min: ${Math.min(...avgDelSpeed)}, max: ${Math.max(...avgDelSpeed)}; \n , server:${(avgDelServer.reduce((a, b) => a + b, 0) / avgDelServer.length).toFixed(2)}ms, min: ${Math.min(...avgDelServer)}, max: ${Math.max(...avgDelServer)}`);
+          console.warn(`avg speed to FE:${(avgDelSpeed.reduce((a, b) => a + b, 0) / avgDelSpeed.length).toFixed(2)} ms, min: ${Math.min(...avgDelSpeed)}, max: ${Math.max(...avgDelSpeed)}; \n , server:${(avgDelServer.reduce((a, b) => a + b, 0) / avgDelServer.length).toFixed(2)}ms, min: ${Math.min(...avgDelServer)}, max: ${Math.max(...avgDelServer)}`);
           i = 1; avgDelSpeed = []; avgDelServer = []
         }
       })
@@ -208,7 +219,7 @@ export default class App extends React.Component {
       .then(data => {
         let timeDiff = new Date() - start;
         avgPutSpeed.push(timeDiff); avgPutServer.push(data.data.timeDiff);
-        if (counter % 10000 == 0) console.log(`Put #${counter}, id: ${id.toLocaleString()}, \ntook ${timeDiff}ms to FE, took ${data.data.timeDiff}ms to server`);
+        if (counter % 10000 == 0) console.log(`Put #${counter}, id: ${id.toLocaleString()}, \ntook ${timeDiff} ms to FE, took ${data.data.timeDiff}ms to server`);
         i++;
         if (i <= target) {
           this.put1000(i);
@@ -221,16 +232,132 @@ export default class App extends React.Component {
       .catch((err) => { console.error(err) });
   }
 
+  selectHandler(event) {
+    let { name, value } = event.target;
+    if (name === "propertyInfo_numGuests") {
+      this.setState({ numQuery: value });
+      value = value.concat("||", 1, "||", name);
+      axios.get(`/api/getPlay/${value}`)
+        .then(data => {
+          this.setState({
+            [name]: data.data,
+            numPage: 1
+          })
+        })
+        .catch(err => console.error(err));
+    } else {
+      this.setState({ locQuery: value });
+      value = value.concat("||", 1, "||", name);
+      axios.get(`/api/getPlay/${value}`)
+        .then(data => {
+          this.setState({
+            [name]: data.data,
+            locPage: 1
+          })
+        })
+        .catch(err => console.error(err));
+    }
+  }
+
+  nextPage(event) {
+    let { name } = event.target;
+    if (name === "propertyInfo_numGuests") {
+      let query = this.state.numQuery;
+      let page = this.state.numPage + 1;
+      query = query.concat("||", page, "||", name);
+      axios.get(`/api/getPlay/${query}`)
+        .then(data => {
+          this.setState({
+            [name]: data.data,
+            numPage: page
+          })
+        })
+        .catch(err => console.error(err));
+    } else {
+      let query = this.state.locQuery;
+      let page = this.state.locPage + 1;
+      query = query.concat("||", page, "||", name);
+      axios.get(`/api/getPlay/${query}`)
+        .then(data => {
+          this.setState({
+            [name]: data.data,
+            locPage: page
+          })
+        })
+        .catch(err => console.error(err));
+    }
+  }
+  prevPage(event) {
+    let { name } = event.target;
+    if (name === "propertyInfo_numGuests") {
+      if (this.state.numPage > 1) {
+        let query = this.state.numQuery;
+        let page = this.state.numPage - 1;
+        query = query.concat("||", page, "||", name);
+        axios.get(`/api/getPlay/${query}`)
+          .then(data => {
+            this.setState({
+              [name]: data.data,
+              numPage: page
+            })
+          })
+          .catch(err => console.error(err));
+      }
+    } else {
+      if (this.state.locPage > 1) {
+        let query = this.state.locQuery;
+        let page = this.state.locPage - 1;
+        query = query.concat("||", page, "||", name);
+        axios.get(`/api/getPlay/${query}`)
+          .then(data => {
+            this.setState({
+              [name]: data.data,
+              locPage: page
+            })
+          })
+          .catch(err => console.error(err));
+      }
+    }
+  }
+
   render() {
-    let { propertyInfo, host, beds, numBaths, summary, amenList, amenNot, amenIcon } = this.state;
+    let { propertyInfo, host, beds, numBaths, summary, amenList, amenNot, amenIcon, propertyInfo_location, propertyInfo_numGuests, numPage, locPage } = this.state;
     let amensClose = () => this.setState({ showAmens: false });
     return (
       <div>
-        {/* please comment out these button below when not testing */}
-        <button onClick={() => this.get1000(1)}>get {target.toLocaleString()}</button>
-        <button onClick={() => this.del1000(1)}>post put del{target.toLocaleString()}</button>
-        <button style={{ backgroundColor: "black", color: "white" }} >{"Est. remaining time " + this.state.time + " secs to finish"}</button>
+        <div>
+          *These buttons below are solely for the purpose of testing CRUD request.<hr />
+          <button onClick={() => this.get1000(1)}>get {target.toLocaleString()} by ID</button>&nbsp;
+          <button onClick={() => this.del1000(1)}>post,put,del {target.toLocaleString()} by ID</button>&nbsp;
+          {/* <button style={{ backgroundColor: "grey", color: "white" }} >{"Est. remaining time " + this.state.time + " secs to finish"}</button>&nbsp; */}
+          <br/>Open the DevTools Console to see the progress of CRUD request by ID.
+          <br /> <br />
+          <form><label htmlFor="loc">Browse on location:&nbsp;
+          <select id="loc" name="propertyInfo_location" onChange={this.selectHandler}>
+            <option label="Select">Select</option>
+            {$locations.map((e, idx) => (
+              <option key={idx} label={e} value={e}></option>
+            ))}
+          </select>
+          </label></form>
+          <button name="propertyInfo_location" onClick={this.prevPage}>prev page</button>&nbsp;
+          <button name="propertyInfo_location" onClick={this.nextPage}>next page</button>
+          <div>{propertyInfo_location.map((e, idx) => (<p key={idx}>#{idx + 1 + 10*(locPage-1)}. {e.propertyInfo_title} | location: {e.propertyInfo_location} | Guests Number: {e.propertyInfo_numGuests}</p>))}</div>
+          <br />
+          <form><label htmlFor="loc">Browse on Number of Guests:&nbsp;
+          <select id="loc" name="propertyInfo_numGuests" onChange={this.selectHandler}>
+              <option label="Select" value="0">Select</option>
+              {$numGuests.map((e, idx) => (
+                <option key={idx} label={e} value={e}></option>
+              ))}
+            </select>
+          </label></form>
+          <button name="propertyInfo_numGuests" onClick={this.prevPage}>prev page</button>&nbsp;
+          <button name="propertyInfo_numGuests" onClick={this.nextPage}>next page</button>
+          <div>{propertyInfo_numGuests.map((e, idx) => (<p key={idx}>#{idx + 1 + 10*(numPage-1)}. {e.propertyInfo_title} | location: {e.propertyInfo_location} | Guests Number: {e.propertyInfo_numGuests}</p>))}</div>
 
+          <hr />
+        </div>
         <div>
           <NavBar property={propertyInfo.title} location={propertyInfo.location} />
           <div id='overviewDiv' className={app.outermostDiv}>
