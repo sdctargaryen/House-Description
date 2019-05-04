@@ -1,7 +1,7 @@
 const mongodb = require('../database/mongoSchema.js');
 // const mysqldb = require('../database/mySqlDB.js');
 // const pgsqldb = require('../database/postgreSqlDB.js');
-
+const storageID = {};
 // mongoDB controller
 const controller = {
   post: (req, res) => {
@@ -30,18 +30,30 @@ const controller = {
   },
   get: (req, res) => {
     let startTime = new Date();
-    mongodb.findOne().where({id: req.params.id}).lean()
-      .then(data => {
-        let endTime = new Date();
-        let timeDiff = endTime - startTime;
-        let data2 = {timeDiff};
-        if (data) Object.assign(data2, data);
-        res.status(200).send(data2);
-      })
-      .catch(err => {
-        console.error(err);
-        res.status(404).send("error from mongo get")
-      });
+    if(storageID[req.params.id]) {
+      console.log("from storageID");
+      let endTime = new Date();
+      let timeDiff = endTime - startTime;
+      let data2 = {timeDiff};
+      Object.assign(data2, storageID[req.params.id]);
+      res.status(200).send(data2);
+    } else {
+      mongodb.findOne().where({id: req.params.id}).lean()
+        .then(data => {
+          storageID[req.params.id] = data;
+          setTimeout(() => delete storageID[req.params.id], 10000);
+          
+          let endTime = new Date();
+          let timeDiff = endTime - startTime;
+          let data2 = {timeDiff};
+          if (data) Object.assign(data2, data);
+          res.status(200).send(data2);
+        })
+        .catch(err => {
+          console.error(err);
+          res.status(404).send("error from mongo get")
+        });
+    }
   },
   del: (req, res) => {
     let startTime = new Date();

@@ -31,3 +31,7 @@ sample.json
 seed.json
 seed.csv
 mysql.json
+
+.dockerignore
+Dockerfile
+rpsTest.yml
