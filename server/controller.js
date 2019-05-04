@@ -41,7 +41,7 @@ const controller = {
       mongodb.findOne().where({id: req.params.id}).lean()
         .then(data => {
           storageID[req.params.id] = data;
-          setTimeout(() => delete storageID[req.params.id], 10000);
+          setTimeout(() => delete storageID[req.params.id], 15000);
           
           let endTime = new Date();
           let timeDiff = endTime - startTime;
